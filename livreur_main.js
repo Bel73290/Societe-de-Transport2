@@ -10,7 +10,6 @@ createApp({
                 { firstName: "N'Golo", lastName: "Kanté", address: "12 Rue de Paris", status: null },
                 { firstName: "Kylian", lastName: "Mbappé", address: "34 Rue des Lilas", status: null },
                 { firstName: "Adrien", lastName: "Rabiot", address: "56 Boulevard Carnot", status: null },
-                { firstName: "Kingsley", lastName: "Coman", address: "78 Rue des Champs", status: null },
             ]
         };
     },
