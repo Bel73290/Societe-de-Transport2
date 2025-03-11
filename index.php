@@ -1,11 +1,10 @@
-<!doctype html>
 <?php
 session_start(); // Démarrer la session
-include_once 'db/db_connect.php';
+include_once 'connexion/db_connect.php';  // Inclure la connexion à la base de données
 
-// Vérifie si le formulaire est soumis
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Nettoyer les entrées
+// Vérifie si le formulaire client est soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
+    // Nettoyer les entrées pour le client
     $name = trim($_POST['name']);
     $colis = trim($_POST['colis']);
     
@@ -13,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = mysqli_real_escape_string($conn, $name);
     $colis = mysqli_real_escape_string($conn, $colis);
 
-    // Requête SQL
+    // Requête SQL pour vérifier le client
     $sql = "SELECT * FROM `Client` WHERE `nom`='$name' AND `numero_colis`='$colis'";
     $result = mysqli_query($conn, $sql);
 
@@ -32,8 +31,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($conn);
 }
+
+// Vérifie si le formulaire employé est soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
+    // Nettoyer les entrées pour l'employé
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    // Échapper les valeurs pour la base de données
+    $username = mysqli_real_escape_string($conn, $username);
+    $password = mysqli_real_escape_string($conn, $password);
+
+    // Requête SQL pour vérifier l'existence de l'employé
+    $sql = "SELECT * FROM `Employe` WHERE `nom`='$username' AND `mdp`='$password'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        die("Erreur SQL : " . mysqli_error($conn)); 
+    }
+
+    // Si l'employé existe, on crée une session
+    if (mysqli_num_rows($result) > 0) {
+        // Récupérer les informations de l'employé
+        $employe = mysqli_fetch_assoc($result);
+        $_SESSION['id_employe'] = $employe['id_employe'];
+        $_SESSION['nom'] = $employe['nom'];
+        $_SESSION['prenom'] = $employe['prenom'];
+        $_SESSION['poste'] = $employe['poste'];
+        
+        // Redirection vers la page de tournée après la connexion
+        header("Location: livreur_main.php");
+        exit();  
+    } else {
+        echo "Identifiants incorrects.";
+    }
+
+    mysqli_close($conn);
+}
 ?>
 
+<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
@@ -47,21 +84,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a>Connexion</a>
   </div>
   <div class="box">
-  
+    <!-- Formulaire Client -->
+    <div class="T_colis">
+      <h1>Horraire de livraison (Client)</h1>
+      <form method="POST" action="">
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" required minlength="4" maxlength="8"  />
+        <label for="colis">Numéro du colis :</label>
+        <input type="text" id="colis" name="colis" required minlength="4" maxlength="50"  />
+        <button class="button" type="submit" name="submit_client">Connexion (Client)</button>
+      </form>
+    </div>
 
-    
-  <div class="T_colis">
-    
-    <h1>Horraire de livraison</h1>
-	<form method="POST" action="">
-    <label for="name">Nom :</label>
-    <input type="text" id="name" name="name" required minlength="4" maxlength="8"  />
-    <label for="name">Numéro du colis :</label>
-    <input type="text" id="colis" name="colis" required minlength="4" maxlength="50"  />
-    <button class="button" type="submit"> Connexion</button>
-	</form>
+    <!-- Formulaire Employé -->
+    <div class="T_colis">
+      <h1>Connexion Employé</h1>
+      <form method="POST" action="">
+        <label for="username">Nom de l'employé :</label>
+        <input type="text" id="username" name="username" required minlength="4" maxlength="50" />
+        
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required minlength="4" maxlength="50" />
+        
+        <button class="button" type="submit" name="submit_employe">Se connecter</button>
+      </form>
+    </div>
   </div>
-</div>
-  
 </body>
 </html>
