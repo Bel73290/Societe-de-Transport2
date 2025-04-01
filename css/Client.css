@@ -11,7 +11,7 @@ body {
     justify-content: center; 
     align-items: center;
     height: 100vh; 
-    background-color: #f0f0f0; 
+    background-color: #81c784; 
     margin: 0;
     position: relative;
 }
@@ -24,7 +24,7 @@ body {
 
 .box {
     display: flex;
-    background-color: grey;
+    background-color: #4caf50;
     width: 320px;
     height: 350px;
     justify-content: center;
