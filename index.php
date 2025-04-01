@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>TranspLac</title>
+  <title>TranspLac ayoub</title>
   <link rel="stylesheet" href="Client/Connect_style.css">
   <script src="script.js"></script>
 </head>
