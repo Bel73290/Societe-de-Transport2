@@ -96,20 +96,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
         <button class="button" type="submit" name="submit_client">Connexion (Client)</button>
       </form>
     </div>
-
-    <!-- Formulaire Employé 
-    <div class="T_colis">
-      <h1>Connexion Employé</h1>
-      <form method="POST" action="">
-        <label for="username">Nom de l'employé :</label>
-        <input type="text" id="username" name="username" required minlength="4" maxlength="50" />
-        
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required minlength="4" maxlength="50" />
-        
-        <button class="button" type="submit" name="submit_employe">Se connecter</button>
-      </form>
-    </div>
-  </div>-->
 </body>
 </html>
