@@ -1,7 +1,11 @@
 <?php
 session_start(); // Démarrer la session
 include_once 'db/db_connect.php';  // Inclure la connexion à la base de données
-include_once 'db/db_disconnect.php';
+
+// Vérifier si la connexion est établie
+if (!isset($conn) || $conn === false) {
+    die("Erreur de connexion à la base de données.");
+}
 
 // Vérifie si le formulaire client est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
@@ -45,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
     mysqli_close($conn);
 }
 ?>
+
 
 <!doctype html>
 <html lang="fr">
