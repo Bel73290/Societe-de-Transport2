@@ -6,7 +6,7 @@
   <script src="script.js"></script>
 </head>
 <body>
-  <img src="img/Logo.png" />
+  <img src="../img/Logo.png" />
   <div class="text">
     <h1>Voici la date que vous avez sélectioner</h1>
   </div>
