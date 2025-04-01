@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
   <div class="box">
     <!-- Formulaire Client -->
     <div class="T_colis">
-      <h1>Horraire de livraison (Client zaaeza)</h1>
+      <h1>Horraire de livraison (Client)</h1>
       <form method="POST" action="">
         <label for="name">Nom :</label>
         <input type="text" id="name" name="name" required minlength="4" maxlength="8"  />
