@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier Administrateur</title>
-    <link rel="stylesheet" href="../css/admin_style.css">
+    <link rel="stylesheet" href="css/admin_style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -62,7 +62,7 @@
                 </form>
                 <div class="file-upload">
                     <h3>Importer des fichiers :</h3>
-                    <form action="Excel.php" method="post" enctype="multipart/form-data">
+                    <form action="import/Excel.php" method="post" enctype="multipart/form-data">
                         <input type="file" name="excelFile" accept=".xls,.xlsx" required>
                         <button type="submit">Importer</button>
                     </form>
@@ -100,6 +100,6 @@
         </footer>
     </div>
 
-    <script src="../js/admin_main.js" defer></script>
+    <script src="js/admin_main.js" defer></script>
 </body>
 </html>
