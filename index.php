@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
     $colis = mysqli_real_escape_string($conn, $colis);
 
     // Requête SQL pour vérifier le client
-    $sql = "SELECT * FROM `Client` WHERE `nom`='$name' AND `numero_colis`='$colis'";
+    $sql = "SELECT * FROM `Utilisateur` WHERE `nom`='$name' AND `numero_colis`='$colis'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
   <div class="box">
     <!-- Formulaire Client -->
     <div class="T_colis">
-      <h1>Horraire de livraison (Client)</h1>
+      <h1>Horraire de livraison</h1>
       <form method="POST" action="">
         <label for="name">Nom :</label>
         <input type="text" id="name" name="name" required minlength="4" maxlength="8"  />
