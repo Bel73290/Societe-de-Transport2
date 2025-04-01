@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../connexion/db_connect.php";
+include "../db/db_connect.php";
 
 // Vérifier si l'employé est connecté
 if (!isset($_SESSION['id_employe'])) {
@@ -27,7 +27,7 @@ $result_tournee = mysqli_query($conn, $sql_tournee);
 $tournee = mysqli_fetch_all($result_tournee, MYSQLI_ASSOC);
 
 // Fermeture de la connexion
-include "../connexion/db_disconnect.php";
+include "../db/db_disconnect.php";
 ?>
 
 <!DOCTYPE html>
