@@ -100,6 +100,6 @@
         </footer>
     </div>
 
-    <script src="main.js" defer></script>
+    <script src="../js/admin_main.js" defer></script>
 </body>
 </html>
