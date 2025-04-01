@@ -99,4 +99,4 @@ session_start(); // Démarrer la session
 </body>
 </html>
 
-<script src="script_menu.js"></script>
+<script src="../js/script_menu.js"></script>
