@@ -67,13 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
   <div class="box">
     <!-- Formulaire Client -->
     <div class="T_colis">
-      <h1>Horraire de livraison</h1>
+      <h1>Horaire de livraison</h1>
       <form method="POST" action="">
         <label for="name">Nom :</label>
         <input type="text" id="name" name="name" required minlength="4" maxlength="8"  />
         <label for="colis">Numéro du colis :</label>
         <input type="text" id="colis" name="colis" required minlength="4" maxlength="50"  />
-        <button class="button" type="submit" name="submit_client">Connexion (Client)</button>
+        <button class="button" type="submit" name="submit_client">Connexion</button>
       </form>
     </div>
 </body>
