@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
     if (mysqli_num_rows($result) > 0) {
         $_SESSION['name'] = $name;
 		$_SESSION['colis'] = $colis;
-        header("Location: Menu_Client.php");
+        header("Location: Client/Menu_Client.php");
         exit();  
     } else {
         echo "Nom ou numéro du colis incorrect.";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
         $_SESSION['poste'] = $employe['poste'];
         
         // Redirection vers la page de tournée après la connexion
-        header("Location: livreur_main.php");
+        header("Location: Client/livreur_main.php");
         exit();  
     } else {
         echo "Identifiants incorrects.";
