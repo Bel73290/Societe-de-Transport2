@@ -11,7 +11,7 @@ session_start(); // Démarrer la session
 </head>
 <body>
     <div>
-        <img src="img/Logo.png"/>
+        <img src="../img/Logo.png"/>
         <h1>Choisissez votre horaire de livraison</h1>
     </div>
     <div class="client">
