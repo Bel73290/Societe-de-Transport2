@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
       </form>
     </div>
 
-    <!-- Formulaire Employé -->
+    <!-- Formulaire Employé 
     <div class="T_colis">
       <h1>Connexion Employé</h1>
       <form method="POST" action="">
@@ -110,6 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
         <button class="button" type="submit" name="submit_employe">Se connecter</button>
       </form>
     </div>
-  </div>
+  </div>-->
 </body>
 </html>
