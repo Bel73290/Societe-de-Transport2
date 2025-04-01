@@ -27,73 +27,23 @@ session_start(); // Démarrer la session
         ?>
     </div>
     <div class="Planning">
-            <div class="grille">
-                <div class="day">
-                    <a></a>
-                </div>
-                <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-                </div>
-            </div>
-        <div class="grille">
-            <div class="day">
-                <a></a>
-            </div>
-            <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-            </div>
-        </div>
-        <div class="grille">
-            <div class="day">
-                <a></a>
-            </div>
-            <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-            </div>
-        </div>
-        <div class="grille">
-            <div class="day">
-                <a></a>
-            </div>
-            <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-            </div>
-        </div>
-        <div class="grille">
-            <div class="day">
-                <a></a>
-            </div>
-            <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-            </div>
-        </div>
-        <div class="grille">
-            <div class="day">
-                <a></a>
-            </div>
-            <div class="Horraire">
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_8_10')">Matin: Entre 8h et 10h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_10_12')">Matin: Entre 10h et 12h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_13_16')">Après-midi: Entre 13h et 16h</a>
-                <a href="confirmation.php" class="horaire" onclick="selectHoraire('day1_16_19')">Après-midi: Entre 16h et 19h</a>
-            </div>
-			
-        </div>
+    <?php
+    for ($i = 0; $i < 6; $i++) {
+        echo "<div class='grille'>";
+        echo    "<div class='day'>";
+        echo        "<a></a>";
+        echo    "</div>";
+        echo    "<div class='Horraire'>";
+        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_8_10')\">Matin: Entre 8h et 10h</a>";
+        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_10_12')\">Matin: Entre 10h et 12h</a>";
+        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_13_16')\">Après-midi: Entre 13h et 16h</a>";
+        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_16_19')\">Après-midi: Entre 16h et 19h</a>";
+        echo    "</div>";
+        echo "</div>";
+    }
+    ?>
+
+           
     </div>
 
 </body>
