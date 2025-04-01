@@ -1,5 +1,5 @@
 <?php
-include "../connexion/db_connect.php";
+include "../db/db_connect.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_livraison = intval($_POST["id_livraison"]);
@@ -9,5 +9,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_query($conn, $sql);
 }
 
-include "../connexion/db_disconnect.php";
+include "../db/db_disconnect.php";
 ?>

@@ -1,6 +1,7 @@
 <?php
 session_start(); // Démarrer la session
-include_once 'connexion/db_connect.php';  // Inclure la connexion à la base de données
+include_once 'db/db_connect.php';  // Inclure la connexion à la base de données
+include_once 'db/db_disconnect.php';
 
 // Vérifie si le formulaire client est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {

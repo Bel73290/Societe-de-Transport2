@@ -1,5 +1,5 @@
 <?php
-include "../connexion/db_connect.php";
+include "../db/db_connect.php";
 
 // Fonction pour récupérer les livraisons non assignées
 function get_livraisons_en_attente($conn) {
@@ -57,5 +57,5 @@ function assigner_tournees($conn) {
 echo assigner_tournees($conn);
 
 // Fermeture de la connexion
-include "../connexion/db_disconnect.php";
+include "../db/db_disconnect.php";
 ?>
