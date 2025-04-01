@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="utf-8">
   <title>TranspLac</title>
-  <link rel="stylesheet" href="Connect_style.css">
+  <link rel="stylesheet" href="Client.css">
   <script src="script.js"></script>
 </head>
 <body>
