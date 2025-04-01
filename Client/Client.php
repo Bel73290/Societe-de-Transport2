@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
 session_start(); // Démarrer la session
-include_once 'db/db_connect.php';
+include_once '../db/db_connect.php';
 
 // Vérifie si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
