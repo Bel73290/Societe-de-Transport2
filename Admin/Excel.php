@@ -1,5 +1,5 @@
 <?php
-require 'db_connect.php';
+require '../db/db_connect.php';
 require 'vendor/autoload.php'; // Chargement de PhpSpreadsheet
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
