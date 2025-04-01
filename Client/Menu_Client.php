@@ -28,7 +28,7 @@ session_start(); // Démarrer la session
     </div>
     <div class="Planning">
     <?php
-    for ($i = 0; $i < 7; $i++) {
+    for ($i = 0; $i < 6; $i++) {
         echo "<div class='grille'>";
         echo    "<div class='day'>";
         echo        "<a></a>";
