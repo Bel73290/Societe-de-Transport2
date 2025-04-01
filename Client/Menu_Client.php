@@ -6,7 +6,7 @@ session_start(); // Démarrer la session
 <head>
   <meta charset="utf-8">
   <title>TranspLac</title>
-  <link rel="stylesheet" href="Menu_Client.css">
+  <link rel="stylesheet" href="css/Menu_Client.css">
 
 </head>
 <body>
