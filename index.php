@@ -14,7 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
     $colis = mysqli_real_escape_string($conn, $colis);
 
     // Requête SQL pour vérifier le client
-    $sql = "SELECT * FROM `Utilisateur` WHERE `nom`='$name' AND `numero_colis`='$colis'";
+    $sql_id_client = "SELECT id FROM `Utilisateur` WHERE `nom`='$name'";
+    $sql= "SELECT * FROM `Colis` WHERE `code_colis`='$colis' AND `id_client`='$sql_id_client'";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
