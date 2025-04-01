@@ -19,11 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
         $rows = $sheet->toArray();
         array_shift($rows); // Supprime la ligne d'en-tête
 
-        $stmt = $conn->prepare("INSERT INTO Utilisateur (nom, email, mdp, telephone, adresse, type) 
+        $stmt = $conn->prepare("INSERT INTO Utilisateur (nom, email, mdp, telephone, adresse, types, date_creation) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         foreach ($rows as $row) {
-            $stmt->execute([$row[0], $row[1], $row[2], $row[3], $row[4], $row[5]]);
+            $stmt->execute([$row[0], $row[1], $row[2], $row[3], $row[4], $row[5], !empty($row[6]) ? $row[6] : NULL]);
         }
 
         header("Location: index.php?status=success");
