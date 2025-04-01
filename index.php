@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
     if (mysqli_num_rows($result) > 0) {
         $_SESSION['name'] = $name;
 		$_SESSION['colis'] = $colis;
-        header("Location: Menu_Client.php");
+        header("Location: Client/Menu_Client.php");
         exit();  
     } else {
         echo "Nom ou numéro du colis incorrect.";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
         $_SESSION['poste'] = $employe['poste'];
         
         // Redirection vers la page de tournée après la connexion
-        header("Location: livreur_main.php");
+        header("Location: Client/livreur_main.php");
         exit();  
     } else {
         echo "Identifiants incorrects.";
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
 <head>
   <meta charset="utf-8">
   <title>TranspLac</title>
-  <link rel="stylesheet" href="Societe-de-Transport2/Client/Connect_style.css">
+  <link rel="stylesheet" href="Client/Connect_style.css">
   <script src="script.js"></script>
 </head>
 <body>
@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
       </form>
     </div>
 
-    <!-- Formulaire Employé -->
+    <!-- Formulaire Employé 
     <div class="T_colis">
       <h1>Connexion Employé</h1>
       <form method="POST" action="">
@@ -110,6 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employe'])) {
         <button class="button" type="submit" name="submit_employe">Se connecter</button>
       </form>
     </div>
-  </div>
+  </div>-->
 </body>
 </html>
