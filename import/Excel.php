@@ -5,18 +5,26 @@ require 'vendor/autoload.php'; // Chargement de PhpSpreadsheet
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+if (!$conn) {
+    die("Connexion à la base de données échouée : " . mysqli_connect_error());
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
     $file = $_FILES['excelFile']['tmp_name'];
 
     if (!$file) {
-        header("Location: ../admin.php?status=error");
-        exit();
+        die("Fichier introuvable ou invalide.");
     }
 
     try {
         $spreadsheet = IOFactory::load($file);
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray();
+
+        echo "<pre>";
+        print_r($rows);
+        echo "</pre>";
+
         array_shift($rows); // Supprime la ligne d'en-tête
 
         $stmt = mysqli_prepare($conn, "INSERT INTO Utilisateur (nom, email, mot_de_passe, telephone, adresse, type) VALUES (?, ?, ?, ?, ?, 'client')");
@@ -32,12 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
             mysqli_stmt_execute($stmt);
         }
 
-        header("Location: ../admin.php?status=success");
+        echo "Importation terminée.";
+        exit();
     } catch (Exception $e) {
-        header("Location: ../admin.php?status=error");
+        echo "Erreur : " . $e->getMessage();
+        exit();
     }
 }
 ?>
+
+
 
 
 

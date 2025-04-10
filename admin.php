@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+// test antonin pour excel
+<?php
+if (isset($_GET['status']) && $_GET['status'] == 'success') {
+    echo "<p style='color: green;'>Importation réussie !</p>";
+} elseif (isset($_GET['status']) && $_GET['status'] == 'error') {
+    echo "<p style='color: red;'>Erreur lors de l'importation !</p>";
+}
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
