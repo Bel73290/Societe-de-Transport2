@@ -27,7 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
 
         array_shift($rows); // Supprime la ligne d'en-tête
 
-        $stmt = mysqli_prepare($conn, "INSERT INTO Utilisateur (nom, email, mot_de_passe, telephone, adresse, type) VALUES (?, ?, ?, ?, ?, 'client')");
+        $query = "INSERT INTO Utilisateur (nom, email, mot_de_passe, telephone, adresse, type) VALUES (?, ?, ?, ?, ?, 'client')";
+        $stmt = mysqli_prepare($conn, $query);
+
+        if (!$stmt) {
+            die("Erreur dans la requête SQL : " . mysqli_error($conn));
+        }
 
         foreach ($rows as $row) {
             $nom = $row[0];
@@ -48,8 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
     }
 }
 ?>
-
-
 
 
 
