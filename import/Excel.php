@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
         foreach ($rows as $row) {
             $nom = $row[0];
             $email = $row[1];
-            $mot_de_passe = password_hash($row[2], PASSWORD_DEFAULT); 
+            $mot_de_passe = $row[2]; 
             $telephone = $row[3];
             $adresse = $row[4];
 
