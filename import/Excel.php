@@ -36,13 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
 
             echo "Ligne $i : $nom, $email, $code_colis, $telephone, $adresse<br>";
 
-            // 1. Insertion dans Utilisateur (sans mot de passe)
-            $queryUser = "INSERT INTO Utilisateur (nom, email, telephone, adresse, types) VALUES (?, ?, ?, ?, 'client')";
+            // 1. Insertion dans Utilisateur (avec code_colis comme mot de passe)
+            $queryUser = "INSERT INTO Utilisateur (nom, email, mdp, telephone, adresse, types) VALUES (?, ?, ?, ?, ?, 'client')";
             $stmtUser = mysqli_prepare($conn, $queryUser);
             if (!$stmtUser) {
                 die("Erreur préparation Utilisateur : " . mysqli_error($conn));
             }
-            mysqli_stmt_bind_param($stmtUser, "ssss", $nom, $email, $telephone, $adresse);
+            mysqli_stmt_bind_param($stmtUser, "sssss", $nom, $email, $code_colis, $telephone, $adresse);
             if (!mysqli_stmt_execute($stmtUser)) {
                 die("Erreur insertion Utilisateur : " . mysqli_stmt_error($stmtUser));
             }
