@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
             mysqli_stmt_execute($stmt);
         }
 
-        header("Location: index.php?status=success");
+        header("Location: ../admin.php?status=success");
     } catch (Exception $e) {
-        header("Location: index.php?status=error");
+        header("Location: ../admin.php?status=error");
     }
 }
 ?>
