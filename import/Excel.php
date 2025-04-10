@@ -27,12 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
 
         array_shift($rows); // Supprime la ligne d'en-tête
 
-        foreach ($rows as $row) {
+        foreach ($rows as $i => $row) {
             $nom = $row[0];
             $email = $row[1];
             $code_colis = $row[2];
             $telephone = $row[3];
             $adresse = $row[4];
+
+            echo "Ligne $i : $nom, $email, $code_colis, $telephone, $adresse<br>";
 
             // 1. Insertion dans Utilisateur (sans mot de passe)
             $queryUser = "INSERT INTO Utilisateur (nom, email, telephone, adresse, types) VALUES (?, ?, ?, ?, 'client')";
@@ -41,9 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
                 die("Erreur préparation Utilisateur : " . mysqli_error($conn));
             }
             mysqli_stmt_bind_param($stmtUser, "ssss", $nom, $email, $telephone, $adresse);
-            mysqli_stmt_execute($stmtUser);
+            if (!mysqli_stmt_execute($stmtUser)) {
+                die("Erreur insertion Utilisateur : " . mysqli_stmt_error($stmtUser));
+            }
 
-            // Récupération de l'id du client
             $id_client = mysqli_insert_id($conn);
 
             // 2. Insertion dans Colis
@@ -53,7 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
                 die("Erreur préparation Colis : " . mysqli_error($conn));
             }
             mysqli_stmt_bind_param($stmtColis, "si", $code_colis, $id_client);
-            mysqli_stmt_execute($stmtColis);
+            if (!mysqli_stmt_execute($stmtColis)) {
+                die("Erreur insertion Colis : " . mysqli_stmt_error($stmtColis));
+            }
         }
 
         echo "Importation terminée.";
@@ -64,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
     }
 }
 ?>
+
 
 
 
