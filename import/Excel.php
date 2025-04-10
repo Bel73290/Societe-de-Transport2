@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
     $file = $_FILES['excelFile']['tmp_name'];
 
     if (!$file) {
-        header("Location: index.php?status=error");
+        header("Location: ../admin.php?status=error");
         exit();
     }
 
