@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
 
         array_shift($rows); // Supprime la ligne d'en-tête
 
-        $query = "INSERT INTO Utilisateur (nom, email, mdp, telephone, adresse, type) VALUES (?, ?, ?, ?, ?, 'client')";
+        $query = "INSERT INTO Utilisateur (nom, email, mdp, telephone, adresse, types) VALUES (?, ?, ?, ?, ?, 'client')";
         $stmt = mysqli_prepare($conn, $query);
 
         if (!$stmt) {
