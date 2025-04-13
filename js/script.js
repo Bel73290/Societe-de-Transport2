@@ -50,29 +50,3 @@ function hideAll() {
     if (clientLogin) clientLogin.style.display = "none"; // Cacher le login client
     if (resultContainer) resultContainer.innerHTML = ""; // Réinitialiser les résultats de recherche
 }
-
-// Cibler le formulaire de recherche
-const searchForm = document.querySelector('form');
-
-// Ajouter un écouteur d'événement pour la soumission du formulaire
-if (searchForm) {
-    searchForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Empêche le rechargement de la page
-        const colis = document.getElementById('colis').value; // Récupère la valeur du numéro de colis
-
-        // Si tu souhaites envoyer la recherche par AJAX, tu peux le faire ici
-        console.log("Recherche pour le colis: ", colis); // Par exemple, loguer la recherche
-
-        // Ensuite, tu peux faire une requête AJAX ou afficher les résultats sans recharger la page
-        // Exemple d'appel AJAX (tu peux adapter selon ton besoin)
-        fetch('/ta-page-de-recherche', {
-            method: 'POST',
-            body: new URLSearchParams({ 'colis': colis, 'submit_search': 'true' })
-        })
-        .then(response => response.text())
-        .then(data => {
-            resultContainer.innerHTML = data; // Afficher les résultats sans recharger la page
-        })
-        .catch(error => console.error('Erreur:', error));
-    });
-}
