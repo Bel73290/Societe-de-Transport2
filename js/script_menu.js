@@ -15,7 +15,6 @@ function genereDates() {
     return dates;
 }
 
-
 function afficherDatesSemaine() {
     const dates = genereDates();
     const Jours = document.querySelectorAll('.grille .day a');
@@ -28,12 +27,15 @@ function afficherDatesSemaine() {
                 month: 'long',
             });
 
-            // Met le texte et le href identiques
             Jours[index].textContent = jourTexte;
-            Jours[index].href = `confirmation.php?date=${jourTexte}`;
+
+            // Encodage du texte pour l'URL
+            const dateEncodee = encodeURIComponent(jourTexte);
+            Jours[index].href = `confirmation.php?date=${dateEncodee}`;
         }
     });
 }
+
 
 
 window.onload = afficherDatesSemaine;
