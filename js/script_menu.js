@@ -27,26 +27,32 @@ function afficherDatesSemaine() {
                 month: 'long',
             });
 
-            Jours[index].textContent = jourTexte;
+            const texte = "Jour : " + jourTexte;
+            Jours[index].textContent = texte;
 
-            // Encodage du texte pour l'URL
-            const dateEncodee = encodeURIComponent(jourTexte);
-            Jours[index].href = `confirmation.php?date=${dateEncodee}`;
+            const urlSafe = encodeURIComponent(texte);
+            Jours[index].href = `confirmation.php?date=${urlSafe}`;
         }
     });
 }
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    afficherDatesSemaine();
 
+window.onload = afficherDatesSemaine;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionne tous les éléments <a> dans la section "Horraire"
     const horaires = document.querySelectorAll('.Horraire a');
+
+    // Ajoute un événement de clic à chaque élément
     horaires.forEach(horaire => {
         horaire.addEventListener('click', function() {
+            // Supprime la classe "selected" de tous les éléments
             horaires.forEach(h => h.classList.remove('selected'));
+            
+            // Ajoute la classe "selected" à l'élément cliqué
             this.classList.add('selected');
         });
     });
 });
-
