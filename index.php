@@ -118,7 +118,7 @@ mysqli_close($conn);
 <body>
 <div class="background-image">
     <div class="top-left">
-        <a href="index.html" class="icon-home">
+        <a href="index.php" class="icon-home">
             <img src="img/accueil.png" alt="Accueil">
         </a>
     </div>
