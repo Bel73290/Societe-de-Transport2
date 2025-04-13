@@ -1,14 +1,14 @@
 function genereDates() {
     const today = new Date();
-    const jourSemaine  = today.getDay();
-    const lundi  = new Date(today);
+    const jourSemaine = today.getDay();
+    const lundi = new Date(today);
     while (lundi.getDay() !== 1) { 
         lundi.setDate(lundi.getDate() - 1);
     }
 
     const dates = [];
     for (let i = 0; i < 6; i++) { 
-        const date = new Date(lundi );
+        const date = new Date(lundi);
         date.setDate(lundi.getDate() + i);
         dates.push(date);
     }
@@ -26,26 +26,26 @@ function afficherDatesSemaine() {
                 day: 'numeric',
                 month: 'long',
             });
+
+            // Met à jour le texte de l'élément
+            Jours[index].textContent = jourTexte;
+
+            // Encode le texte pour qu'il soit utilisable dans une URL
+            const jourTexteEncode = encodeURIComponent(jourTexte);
+
+            // Met à jour le href de l'élément
+            Jours[index].setAttribute('href', `confirmation.php?date=${jourTexteEncode}`);
         }
     });
 }
 
-
-
-
 window.onload = afficherDatesSemaine;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne tous les éléments <a> dans la section "Horraire"
     const horaires = document.querySelectorAll('.Horraire a');
-
-    // Ajoute un événement de clic à chaque élément
     horaires.forEach(horaire => {
         horaire.addEventListener('click', function() {
-            // Supprime la classe "selected" de tous les éléments
             horaires.forEach(h => h.classList.remove('selected'));
-            
-            // Ajoute la classe "selected" à l'élément cliqué
             this.classList.add('selected');
         });
     });
