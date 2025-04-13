@@ -26,12 +26,6 @@ function afficherDatesSemaine() {
                 day: 'numeric',
                 month: 'long',
             });
-
-            const texte = "Jour : " + jourTexte;
-            Jours[index].textContent = texte;
-
-            const urlSafe = encodeURIComponent(texte);
-            Jours[index].href = `confirmation.php?date=${urlSafe}`;
         }
     });
 }
