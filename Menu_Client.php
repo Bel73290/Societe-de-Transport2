@@ -1,6 +1,7 @@
 <!doctype html>
 <?php
 session_start(); // Démarrer la session
+include_once 'db/db_connect.php';
 ?>
 <html lang="fr">
 <head>
@@ -27,6 +28,8 @@ session_start(); // Démarrer la session
         ?>
     </div>
     <div class="Planning">
+
+  
     <?php
     for ($i = 0; $i < 6; $i++) {
         echo "<div class='grille'>";
@@ -34,10 +37,10 @@ session_start(); // Démarrer la session
         echo        "<a></a>";
         echo    "</div>";
         echo    "<div class='Horraire'>";
-        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_8_10')\">Matin: Entre 8h et 10h</a>";
-        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_10_12')\">Matin: Entre 10h et 12h</a>";
-        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_13_16')\">Après-midi: Entre 13h et 16h</a>";
-        echo        "<a href='confirmation.php' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_16_19')\">Après-midi: Entre 16h et 19h</a>";
+        echo        "<a href='confirmation.php?heure=Matin: Entre 8h et 10h' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_8_10')\">Matin: Entre 8h et 10h</a>";
+        echo        "<a href='confirmation.php?heure=Matin: Entre 10h et 12h' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_10_12')\">Matin: Entre 10h et 12h</a>";
+        echo        "<a href='confirmation.php?heure=Après-midi: Entre 13h et 16h' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_13_16')\">Après-midi: Entre 13h et 16h</a>";
+        echo        "<a href='confirmation.php?heure=Après-midi: Entre 16h et 19h' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_16_19')\">Après-midi: Entre 16h et 19h</a>";
         echo    "</div>";
         echo "</div>";
     }

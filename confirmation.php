@@ -11,6 +11,11 @@
     <h1>Voici la date que vous avez sélectioner</h1>
   </div>
   <div class="date">
+    <?php
+    $heure = htmlspecialchars($_GET['heure']);
+    echo "<p>Lundi 3 mars<p>"
+    echo "<p>$heure<p>"
+    ?>
 		<p>Lundi 3 mars<p>
 		<p>Matin: Entre 8h et 10h<p>
 
