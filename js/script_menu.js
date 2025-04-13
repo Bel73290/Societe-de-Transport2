@@ -17,7 +17,7 @@ function genereDates() {
 
 function afficherDatesSemaine() {
     const dates = genereDates();
-    const Jours  = document.querySelectorAll('.grille .day a');
+    const Jours  = document.querySelectorAll('.grille .day p');
 
     const liens = [
         'lien_pour_lundi.html', // Lien pour lundi
@@ -46,7 +46,7 @@ window.onload = afficherDatesSemaine;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Sélectionne tous les éléments <a> dans la section "Horraire"
-    const horaires = document.querySelectorAll('.Horraire a');
+    const horaires = document.querySelectorAll('.Horraire p');
 
     // Ajoute un événement de clic à chaque élément
     horaires.forEach(horaire => {
