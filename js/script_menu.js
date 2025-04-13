@@ -36,8 +36,8 @@ function afficherDatesSemaine() {
                 month: 'long',
             });
 
-            // Définir le lien pour chaque jour
-            Jours[index].setAttribute('href', liens[index]);
+            // Ajouter le lien comme un attribut data-lien
+            Jours[index].setAttribute('data-lien', liens[index]);
         }
     });
 }
@@ -45,12 +45,18 @@ function afficherDatesSemaine() {
 window.onload = afficherDatesSemaine;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne tous les éléments <a> dans la section "Horraire"
+    // Sélectionne tous les éléments <p> dans la section "Horraire"
     const horaires = document.querySelectorAll('.Horraire p');
 
     // Ajoute un événement de clic à chaque élément
     horaires.forEach(horaire => {
         horaire.addEventListener('click', function() {
+            // Récupère le lien à partir de l'attribut data-lien
+            const lien = this.getAttribute('data-lien');
+            if (lien) {
+                window.location.href = lien;  // Redirige vers le lien
+            }
+            
             // Supprime la classe "selected" de tous les éléments
             horaires.forEach(h => h.classList.remove('selected'));
             
