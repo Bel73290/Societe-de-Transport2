@@ -13,12 +13,10 @@
   <div class="date">
     <?php
     $heure = htmlspecialchars($_GET['heure']);
-    echo "<p>Lundi 3 mars<p>";
+    $date = htmlspecialchars($_GET['date']);
+    echo "<p>$date<p>";
     echo "<p>$heure<p>";
     ?>
-		<p>Lundi 3 mars<p>
-		<p>Matin: Entre 8h et 10h<p>
-
     
   <div class="T_colis">
     

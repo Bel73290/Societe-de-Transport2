@@ -18,19 +18,22 @@ function genereDates() {
 
 function afficherDatesSemaine() {
     const dates = genereDates();
-    const Jours  = document.querySelectorAll('.grille .day a');
+    const Jours = document.querySelectorAll('.grille .day a');
 
     dates.forEach((date, index) => {
         if (Jours[index]) {
-            Jours[index].textContent = date.toLocaleDateString('fr-FR', {
+            const jourTexte = date.toLocaleDateString('fr-FR', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'long',
             });
+
+            // Met le texte et le href identiques
+            Jours[index].textContent = jourTexte;
+            Jours[index].href = `confirmation.php?date=${jourTexte}`;
         }
     });
 }
-
 
 
 window.onload = afficherDatesSemaine;
