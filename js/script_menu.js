@@ -15,18 +15,10 @@ function genereDates() {
     return dates;
 }
 
+
 function afficherDatesSemaine() {
     const dates = genereDates();
-    const Jours  = document.querySelectorAll('.grille .day p');
-
-    const liens = [
-        'lien_pour_lundi.html', // Lien pour lundi
-        'lien_pour_mardi.html', // Lien pour mardi
-        'lien_pour_mercredi.html', // Lien pour mercredi
-        'lien_pour_jeudi.html', // Lien pour jeudi
-        'lien_pour_vendredi.html', // Lien pour vendredi
-        'lien_pour_samedi.html' // Lien pour samedi
-    ];
+    const Jours  = document.querySelectorAll('.grille .day a');
 
     dates.forEach((date, index) => {
         if (Jours[index]) {
@@ -35,28 +27,21 @@ function afficherDatesSemaine() {
                 day: 'numeric',
                 month: 'long',
             });
-
-            // Ajouter le lien comme un attribut data-lien
-            Jours[index].setAttribute('data-lien', liens[index]);
         }
     });
 }
 
+
+
 window.onload = afficherDatesSemaine;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne tous les éléments <p> dans la section "Horraire"
-    const horaires = document.querySelectorAll('.Horraire p');
+    // Sélectionne tous les éléments <a> dans la section "Horraire"
+    const horaires = document.querySelectorAll('.Horraire a');
 
     // Ajoute un événement de clic à chaque élément
     horaires.forEach(horaire => {
         horaire.addEventListener('click', function() {
-            // Récupère le lien à partir de l'attribut data-lien
-            const lien = this.getAttribute('data-lien');
-            if (lien) {
-                window.location.href = lien;  // Redirige vers le lien
-            }
-            
             // Supprime la classe "selected" de tous les éléments
             horaires.forEach(h => h.classList.remove('selected'));
             

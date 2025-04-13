@@ -34,7 +34,7 @@ include_once 'db/db_connect.php';
     for ($i = 0; $i < 6; $i++) {
         echo "<div class='grille'>";
         echo    "<div class='day'>";
-        echo        "<p></p>";
+        echo        "<a></a>";
         echo    "</div>";
         echo    "<div class='Horraire'>";
         echo        "<a href='confirmation.php?heure=Matin: Entre 8h et 10h' class='horaire' onclick=\"selectHoraire('day" . ($i+1) . "_8_10')\">Matin: Entre 8h et 10h</a>";
