@@ -38,20 +38,15 @@ function afficherDatesSemaine() {
 
 
 
-window.onload = afficherDatesSemaine;
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélectionne tous les éléments <a> dans la section "Horraire"
-    const horaires = document.querySelectorAll('.Horraire a');
+    afficherDatesSemaine();
 
-    // Ajoute un événement de clic à chaque élément
+    const horaires = document.querySelectorAll('.Horraire a');
     horaires.forEach(horaire => {
         horaire.addEventListener('click', function() {
-            // Supprime la classe "selected" de tous les éléments
             horaires.forEach(h => h.classList.remove('selected'));
-            
-            // Ajoute la classe "selected" à l'élément cliqué
             this.classList.add('selected');
         });
     });
 });
+
