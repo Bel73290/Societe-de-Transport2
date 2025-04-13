@@ -1,0 +1,300 @@
+/* Style général */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    width: 98.9%;
+    height: 98%;
+    background: url('../img/photo1.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 50px;
+    border: 10px solid white;
+}
+
+/* Haut Gauche */
+.top-left {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.top-left .icon-home img {
+    width: 40px; /* Largeur de l'image */
+    height: 40px; /* Hauteur de l'image */
+    border-radius: 50%; /* Coins arrondis pour maintenir la forme circulaire */
+    background-color: white; /* Fond blanc autour de l'image */
+    padding: 5px; /* Espace autour de l'image */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Effet d'ombre */
+    cursor: pointer; /* Indique que c'est cliquable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transition fluide */
+}
+
+.top-left .icon-home img:hover {
+    background-color: rgb(19, 115, 194); /* Couleur de fond au survol */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Effet d'ombre plus prononcé */
+}
+
+/* Haut Centre */
+.top-center {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.top-center .vertical-bar {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row; /* Aligne les éléments horizontalement */
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.top-center .vertical-bar .menu-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 10px; /* Coins arrondis pour la mini-barre */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.top-center .vertical-bar .menu-item:hover {
+    background-color: rgb(19, 115, 194); /* Couleur survolée */
+    color: white;
+}
+
+/* Barre de Recherche */
+.top-center #search-box {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 2px solid #dddddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.top-center #search-box input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.top-center #search-box button {
+    padding: 10px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.top-center #search-box button:hover {
+    background-color: #005bb5;
+}
+
+/* Résultat trouvé */
+.top-center .search-result {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e6f7e6; /* Vert pâle */
+    border: 2px solid #28a745; /* Vert foncé */
+    border-radius: 5px;
+    color: #28a745;
+    text-align: center;
+}
+
+/* Message d'erreur */
+.top-center .error-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #fbeaea; /* Rouge pâle */
+    border: 2px solid #d9534f; /* Rouge foncé */
+    border-radius: 5px;
+    color: #d9534f;
+    text-align: center;
+}
+
+
+/* Espace Employés */
+.top-center #employee-login {
+    display: none; /* Caché par défaut */
+    flex-direction: column; /* Aligne les éléments verticalement */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* Fond blanc */
+    border: 2px solid #bbbbbb; /* Bordure grise moyenne */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+.top-center #employee-login input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+}
+
+.top-center #employee-login button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc; /* Bleu uni */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.top-center #employee-login button:hover {
+    background-color: #005bb5; /* Bleu plus foncé au survol */
+}
+
+.top-center #employee-login h3 {
+    text-align: center;
+    color: #333333; /* Gris foncé */
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Modifier Livraison */
+.top-center #client-login {
+    display: none; /* Caché par défaut */
+    flex-direction: column; /* Aligne les éléments verticalement */
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff; /* Fond blanc */
+    border: 2px solid #dddddd; /* Bordure grise claire */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+.top-center #client-login input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+}
+
+.top-center #client-login button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc; /* Bleu uni */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.top-center #client-login button:hover {
+    background-color: #005bb5; /* Bleu plus foncé au survol */
+}
+
+.top-center #client-login h3 {
+    text-align: center;
+    color: #333333; /* Gris foncé */
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+
+/* Bas Gauche */
+.bottom-left {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.bottom-left h1 {
+    font-size: 2.8em; /* Augmentation de la taille pour le titre */
+    font-weight: bold; /* Texte audacieux */
+    text-transform: uppercase; /* Titre en majuscules */
+    color: rgb(19, 115, 194); /* Couleur pour attirer l'attention */
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8); /* Ombre puissante pour profondeur */
+    margin: 0;
+}
+
+.bottom-left p {
+    font-size: 1.4em; /* Taille agrandie pour mieux lire */
+    color: white; /* Contraste fort pour la lisibilité */
+    font-style: italic; /* Style élégant pour les paragraphes */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Ombre subtile */
+    margin: 10px 0;
+    line-height: 1.5; /* Espacement agréable */
+}
+
+.bottom-left {
+    animation: fadeInText 2s ease; /* Animation pour une entrée fluide */
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateX(-20px); /* Apparition depuis la gauche */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Position normale */
+    }
+}
+
+/* Bas Droite */
+.bottom-right {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+.bottom-right .big-block {
+    background: url('../img/photo2.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 20px;
+    border: 5px solid white;
+    height: 320px;
+    width: 320px;
+    margin-bottom: 10px;
+}
+
+.bottom-right .small-blocks {
+    display: flex;
+    gap: 10px;
+}
+
+.bottom-right .small-blocks .small-block1, .bottom-right .small-blocks .small-block2 {
+    border-radius: 20px;
+    border: 5px solid white;
+    height: 150px;
+    width: 150px;
+}
+
+.bottom-right .small-blocks .small-block1 {
+    background: url('../img/photo3.png') no-repeat center center;
+    background-size: cover;
+}
+
+.bottom-right .small-blocks .small-block2 {
+    background: url('../img/photo4.png') no-repeat center center;
+    background-size: cover;
+}
+
+.bottom-right .big-block, .bottom-right .small-blocks .small-block1, .bottom-right .small-blocks .small-block2 {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition fluide */
+}
+
+.bottom-right .big-block:hover, .bottom-right .small-blocks .small-block1:hover, .bottom-right .small-blocks .small-block2:hover {
+    transform: scale(1.05); /* Agrandit légèrement le bloc */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Ajoute une ombre plus prononcée */
+}

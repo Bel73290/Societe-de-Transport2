@@ -1,35 +1,3 @@
-<?php
-session_start();
-include "../db/db_connect.php";
-
-// Vérifier si l'employé est connecté
-if (!isset($_SESSION['id_employe'])) {
-    header("Location: index.php"); // Redirige vers la page de connexion si non connecté
-    exit();
-}
-
-$id_employe = $_SESSION['id_employe'];
-
-// Récupérer les infos du livreur
-$sql_livreur = "SELECT nom, prenom FROM Employe WHERE id_employe = $id_employe";
-$result_livreur = mysqli_query($conn, $sql_livreur);
-$livreur = mysqli_fetch_assoc($result_livreur);
-
-// Récupérer les livraisons assignées au livreur
-$sql_tournee = "SELECT L.id_livraison, C.nom, C.prenom, C.adresse, L.status, T.heure_debut, T.heure_fin
-                FROM Livraisons L
-                INNER JOIN Client C ON L.id_client = C.id_client
-                INNER JOIN TrancheHoraire T ON L.id_tranche = T.id_tranche
-                WHERE L.id_employe = $id_employe
-                ORDER BY L.id_tranche, L.date_livraison";
-
-$result_tournee = mysqli_query($conn, $sql_tournee);
-$tournee = mysqli_fetch_all($result_tournee, MYSQLI_ASSOC);
-
-// Fermeture de la connexion
-include "../db/db_disconnect.php";
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
