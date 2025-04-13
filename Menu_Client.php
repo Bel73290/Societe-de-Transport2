@@ -52,4 +52,4 @@ include_once 'db/db_connect.php';
 </body>
 </html>
 
-<script src="js/script_men.js"></script>
+<script src="js/script_menu.js"></script>
