@@ -4,110 +4,108 @@ include_once 'db/db_connect.php';  // Inclure la connexion à la base de donnée
 
 // Vérifier si la connexion à la base est établie
 if (!isset($conn) || $conn === false) {
-    die("Erreur de connexion à la base de données.");
+die("Erreur de connexion à la base de données.");
 }
 
-// Vérifier la soumission du formulaire de recherche
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_search'])) {
-    $colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
+$colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
 
-    if (empty($colis)) {
-        $error_message_search = "Veuillez entrer un numéro de colis.";
-    } else {
-        $sql = "SELECT * FROM `Colis` WHERE `code_colis`='$colis'";
-        $result = mysqli_query($conn, $sql);
-        
-        if (!$result) {
-            die("Erreur SQL (Colis) : " . mysqli_error($conn));
-        }
-        
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $search_result = "Colis trouvé ! Statut : " . htmlspecialchars($row['statut']) . 
-                            ", Date de réception prévue : " . htmlspecialchars($row['date_reception']);
-        } else {
-            $error_message_search = "Le colis n'existe pas dans la base de données.";
-        }
+if (empty($colis)) {
+    $error_message_search = "Veuillez entrer un numéro de colis.";
+} else {
+    $sql = "SELECT * FROM `Colis` WHERE `code_colis`='$colis'";
+    $result = mysqli_query($conn, $sql);
+    
+    if (!$result) {
+        die("Erreur SQL (Colis) : " . mysqli_error($conn));
     }
+    
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $search_result = "Colis trouvé ! Statut : " . htmlspecialchars($row['statut']) . 
+                            ", Date de réception prévue : " . htmlspecialchars($row['date_reception']);
+    } else {
+        $error_message_search = "Le colis n'existe pas dans la base de données.";
+    }
+}
 }
 
 // Vérifie si le formulaire client est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_client'])) {
-    // Nettoyer et échapper les entrées utilisateur pour éviter les injections SQL
-    $name = mysqli_real_escape_string($conn, trim($_POST['name']));
-    $colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
+// Nettoyer et échapper les entrées utilisateur pour éviter les injections SQL
+$name = mysqli_real_escape_string($conn, trim($_POST['name']));
+$colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
 
-    // Requête SQL pour récupérer l'ID du client
-    $sql_id_client = "SELECT id FROM `Utilisateur` WHERE `nom`='$name'";
-    $result_id = mysqli_query($conn, $sql_id_client);
+// Requête SQL pour récupérer l'ID du client
+$sql_id_client = "SELECT id FROM `Utilisateur` WHERE `nom`='$name'";
+$result_id = mysqli_query($conn, $sql_id_client);
 
-    if (!$result_id) {
-        die("Erreur SQL (Utilisateur) : " . mysqli_error($conn));
+if (!$result_id) {
+    die("Erreur SQL (Utilisateur) : " . mysqli_error($conn));
+}
+
+// Vérifier si un ID de client a été trouvé
+if (mysqli_num_rows($result_id) > 0) {
+    $row = mysqli_fetch_assoc($result_id);
+    $id_client = $row['id'];
+
+    // Requête SQL pour vérifier le colis associé au client
+    $sql = "SELECT * FROM `Colis` WHERE `code_colis`='$colis' AND `id_client`='$id_client'";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        die("Erreur SQL (Colis) : " . mysqli_error($conn));
     }
 
-    // Vérifier si un ID de client a été trouvé
-    if (mysqli_num_rows($result_id) > 0) {
-        $row = mysqli_fetch_assoc($result_id);
-        $id_client = $row['id'];
-
-        // Requête SQL pour vérifier le colis associé au client
-        $sql = "SELECT * FROM `Colis` WHERE `code_colis`='$colis' AND `id_client`='$id_client'";
-        $result = mysqli_query($conn, $sql);
-
-        if (!$result) {
-            die("Erreur SQL (Colis) : " . mysqli_error($conn));
-        }
-
-        if (mysqli_num_rows($result) > 0) {
-            // Si le colis est trouvé, stocker les données dans la session et rediriger
-            $_SESSION['name'] = $name;
-            $_SESSION['colis'] = $colis;
-            header("Location: Menu_Client.php");
-            exit();
-        } else {
-            $error_message = "Numéro de colis incorrect.";
-        }
+    if (mysqli_num_rows($result) > 0) {
+        // Si le colis est trouvé, stocker les données dans la session et rediriger
+        $_SESSION['name'] = $name;
+        $_SESSION['colis'] = $colis;
+        header("Location: Menu_Client.php");
+        exit();
     } else {
-        $error_message = "Nom incorrect.";
+        $error_message = "Numéro de colis incorrect.";
     }
+} else {
+    $error_message = "Nom incorrect.";
+}
 }
 
 // Vérifie si le formulaire employé est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employee'])) {
-    // Nettoyer et échapper les entrées utilisateur
-    $employee_name = mysqli_real_escape_string($conn, trim($_POST['employee_name']));
-    $employee_password = mysqli_real_escape_string($conn, trim($_POST['employee_password']));
+// Nettoyer et échapper les entrées utilisateur
+$employee_name = mysqli_real_escape_string($conn, trim($_POST['employee_name']));
+$employee_password = mysqli_real_escape_string($conn, trim($_POST['employee_password']));
 
-    // Requête SQL pour récupérer les informations de l'employé
-    $sql_employee = "SELECT * FROM `Utilisateur` WHERE `nom`='$employee_name' AND `mdp`='$employee_password'";
-    $result_employee = mysqli_query($conn, $sql_employee);
+// Requête SQL pour récupérer les informations de l'employé
+$sql_employee = "SELECT * FROM `Utilisateur` WHERE `nom`='$employee_name' AND `mdp`='$employee_password'";
+$result_employee = mysqli_query($conn, $sql_employee);
 
-    if (!$result_employee) {
-        die("Erreur SQL (Employés) : " . mysqli_error($conn));
-    }
+if (!$result_employee) {
+    die("Erreur SQL (Employés) : " . mysqli_error($conn));
+}
 
-    if (mysqli_num_rows($result_employee) > 0) {
-        $row = mysqli_fetch_assoc($result_employee);
-        $user_type = $row['types']; // "admin" ou "employé"
+if (mysqli_num_rows($result_employee) > 0) {
+    $row = mysqli_fetch_assoc($result_employee);
+    $user_type = $row['types']; // "admin" ou "employé"
 
-        // Stocker les informations dans la session
-        $_SESSION['employee_name'] = $employee_name;
+    // Stocker les informations dans la session
+    $_SESSION['employee_name'] = $employee_name;
 
-        // Rediriger en fonction du type d'utilisateur
-        if ($user_type === "admin") {
-            header("Location: admin.php");
-        } else {
-            header("Location: livreur_main.php");
-        }
-        exit();
+    // Rediriger en fonction du type d'utilisateur
+    if ($user_type === "admin") {
+        header("Location: admin.php");
     } else {
-        $error_message_employee = "Nom ou mot de passe incorrect.";
+        header("Location: livreur_main.php");
     }
+    exit();
+} else {
+    $error_message_employee = "Nom ou mot de passe incorrect.";
+}
 }
 
 mysqli_close($conn);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
