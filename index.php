@@ -59,9 +59,10 @@ if (mysqli_num_rows($result_id) > 0) {
 
     if (mysqli_num_rows($result) > 0) {
         // Si le colis est trouvé, stocker les données dans la session et rediriger
+        $_SESSION['id'] = $id_client; // Ajout de l'ID utilisateur
         $_SESSION['name'] = $name;
         $_SESSION['colis'] = $colis;
-        header("Location: Menu_Client.php");
+        header("Location: client.php");
         exit();
     } else {
         $error_message = "Numéro de colis incorrect.";
@@ -69,8 +70,8 @@ if (mysqli_num_rows($result_id) > 0) {
 } else {
     $error_message = "Nom incorrect.";
 }
-}
 
+}
 // Vérifie si le formulaire employé est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_employee'])) {
 // Nettoyer et échapper les entrées utilisateur
