@@ -146,24 +146,22 @@ $monthYear = $moisFrancais[$month] . " " . $year;
     <link rel="stylesheet" href="css/client2.css">
 </head>
 <body>
-    <div class="background">
-        <div id="calendar-container">
-            <div class="calendar-header">
-                <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois précédent</a>
-                <h1 id="month-year-display"><?php echo $monthYear; ?></h1>
-                <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>" id="next-month">Mois suivant</a>
-            </div>
-            <div id="calendar">
-                <?php echo generateCalendar($month, $year); ?>
-            </div>
+    <div id="calendar-container">
+        <div class="calendar-header">
+            <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois précédent</a>
+            <h1 id="month-year-display"><?php echo $monthYear; ?></h1>
+            <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>" id="next-month">Mois suivant</a>
         </div>
-
-        <div id="horaire-container" style="display: none;">
-            <h2>Tranches horaires disponibles</h2>
-            <p>Sélectionnez une date pour afficher les horaires.</p>
+        <div id="calendar">
+            <?php echo generateCalendar($month, $year); ?>
         </div>
-        <button id="back-button" style="display: none;">Retour</button>
     </div>
+
+    <div id="horaire-container" style="display: none;">
+        <h2>Tranches horaires disponibles</h2>
+        <p>Sélectionnez une date pour afficher les horaires.</p>
+    </div>
+    <button id="back-button" style="display: none;">Retour</button>
     <script src="js/client.js" defer></script>
 </body>
 </html>
