@@ -143,7 +143,7 @@ $monthYear = $moisFrancais[$month] . " " . $year;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier interactif</title>
-    <link rel="stylesheet" href="css/client.css">
+    <link rel="stylesheet" href="css/client2.css">
 </head>
 <body>
     <div class="background">
