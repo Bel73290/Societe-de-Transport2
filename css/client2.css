@@ -68,7 +68,7 @@ html, body {
 
 /* ====== TABLE CALENDRIER ====== */
 .calendar-table {
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
     margin-top: 20px;
     background-color: white;
