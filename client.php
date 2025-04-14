@@ -16,7 +16,7 @@ if (!$conn || $conn === false) {
 }
 
 // Vérifier la table `Colis` pour récupérer l'ID du colis associé à l'utilisateur
-$queryColis = "SELECT id FROM Colis WHERE id_client = '$idUtilisateur' LIMIT 1";
+$queryColis = "SELECT id FROM colis WHERE id_client = '$idUtilisateur' LIMIT 1";
 $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insérer dans la table livraison
         $queryLivraison = "
-            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
+            INSERT INTO livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
             VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate')
         ";
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
         // Récupérer les tranches horaires disponibles pour la date sélectionnée
-        $queryHoraire = "SELECT * FROM TrancheHoraire";
+        $queryHoraire = "SELECT * FROM trancheHoraire";
         $resultHoraire = mysqli_query($conn, $queryHoraire);
 
         if (!$resultHoraire) {
@@ -146,22 +146,24 @@ $monthYear = $moisFrancais[$month] . " " . $year;
     <link rel="stylesheet" href="css/client.css">
 </head>
 <body>
-    <div id="calendar-container">
-        <div class="calendar-header">
-            <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois précédent</a>
-            <h1 id="month-year-display"><?php echo $monthYear; ?></h1>
-            <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>" id="next-month">Mois suivant</a>
+    <div class="background">
+        <div id="calendar-container">
+            <div class="calendar-header">
+                <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois précédent</a>
+                <h1 id="month-year-display"><?php echo $monthYear; ?></h1>
+                <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>" id="next-month">Mois suivant</a>
+            </div>
+            <div id="calendar">
+                <?php echo generateCalendar($month, $year); ?>
+            </div>
         </div>
-        <div id="calendar">
-            <?php echo generateCalendar($month, $year); ?>
-        </div>
-    </div>
 
-    <div id="horaire-container" style="display: none;">
-        <h2>Tranches horaires disponibles</h2>
-        <p>Sélectionnez une date pour afficher les horaires.</p>
+        <div id="horaire-container" style="display: none;">
+            <h2>Tranches horaires disponibles</h2>
+            <p>Sélectionnez une date pour afficher les horaires.</p>
+        </div>
+        <button id="back-button" style="display: none;">Retour</button>
     </div>
-    <button id="back-button" style="display: none;">Retour</button>
     <script src="js/client.js" defer></script>
 </body>
 </html>
