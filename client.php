@@ -16,7 +16,7 @@ if (!$conn || $conn === false) {
 }
 
 // Vérifier la table `Colis` pour récupérer l'ID du colis associé à l'utilisateur
-$queryColis = "SELECT id FROM colis WHERE id_client = '$idUtilisateur' LIMIT 1";
+$queryColis = "SELECT id FROM Colis WHERE id_client = '$idUtilisateur' LIMIT 1";
 $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insérer dans la table livraison
         $queryLivraison = "
-            INSERT INTO livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
+            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
             VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate')
         ";
 
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
         // Récupérer les tranches horaires disponibles pour la date sélectionnée
-        $queryHoraire = "SELECT * FROM trancheHoraire";
+        $queryHoraire = "SELECT * FROM TrancheHoraire";
         $resultHoraire = mysqli_query($conn, $queryHoraire);
 
         if (!$resultHoraire) {
