@@ -85,8 +85,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Gérer la navigation du calendrier
-$month = isset($_GET['month']) && is_numeric($_GET['month']) ? (int)$_GET['month'] : date('m');
-$year = isset($_GET['year']) && is_numeric($_GET['year']) ? (int)$_GET['year'] : date('Y');
+$month = isset($_GET['month']) && is_numeric($_GET['month']) ? (int) $_GET['month'] : (int) date('n');
+$year = isset($_GET['year']) && is_numeric($_GET['year']) ? (int) $_GET['year'] : (int) date('Y');
+
 
 // Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
 if ($month < 1 || $month > 12) {
