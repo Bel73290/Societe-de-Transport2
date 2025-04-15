@@ -23,23 +23,6 @@ html, body {
     overflow: auto; /* Ajoute un défilement si le contenu dépasse */
 }
 
-.calendar-header a {
-    background-color: white;
-    border-radius: 20px;
-    text-decoration: none;
-    padding: 8px 16px;
-    color: #333; /* Couleur du texte */
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-    margin: 0 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.calendar-header a:hover {
-    background-color: #f0f0f0;
-    color: #000;
-}
-
 
 /* ====== ANIMATION APPARITION ====== */
 @keyframes fadeInBlock {
@@ -53,11 +36,30 @@ html, body {
     }
 }
 
+.calendar-header a {
+    background-color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    padding: 8px 16px;
+    color: #1373c2;
+    font-weight: bold;
+    border: 2px solid #1373c2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header a:hover {
+    background-color: #1373c2;
+    color: white;
+}
+
+
 /* ====== EN-TÊTE DU CALENDRIER (calendar-header) ====== */
 .calendar-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* au lieu de space-between */
     align-items: center;
+    gap: 40px; /* espace entre les éléments */
     padding: 10px 20px;
     background-color: #1373c2;
     color: white;
