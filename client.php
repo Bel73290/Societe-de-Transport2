@@ -148,7 +148,7 @@ $monthYear = $moisFrancais[$month] . " " . $year;
 <body>
     <div id="calendar-container">
         <div class="calendar-header">
-            <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois précédent</a>
+            <a href="?month=<?php echo $prevMonth; ?>&year=<?php echo $prevYear; ?>" id="prev-month">Mois TEST précédent</a>
             <h1 id="month-year-display"><?php echo $monthYear; ?></h1>
             <a href="?month=<?php echo $nextMonth; ?>&year=<?php echo $nextYear; ?>" id="next-month">Mois suivant</a>
         </div>
