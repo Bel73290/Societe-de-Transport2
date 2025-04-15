@@ -1,4 +1,3 @@
-<?php
 session_start();
 include_once 'db/db_connect.php';
 
@@ -7,19 +6,14 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-// Vérifie si les données de livraison sont passées
-// Support à la fois POST et GET
+// Vérifie si les données sont envoyées, avec une valeur par défaut en cas d'absence
 $selectedDate = $_POST['selected_date'] ?? $_GET['selected_date'] ?? null;
 $selectedHoraireId = $_POST['selected_horaire'] ?? $_GET['selected_horaire'] ?? null;
 
 if (!$selectedDate || !$selectedHoraireId) {
-    header("Location: index.php");
+    header("Location: index.php"); // Redirection en cas de données manquantes
     exit();
 }
-
-
-$selectedDate = $_POST['selected_date'];
-$selectedHoraireId = $_POST['selected_horaire'];
 
 // Récupère les infos de la tranche horaire
 $query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = ?";
@@ -93,3 +87,4 @@ if ($row = mysqli_fetch_assoc($result)) {
     </div>
 </body>
 </html>
+
