@@ -142,7 +142,7 @@ $moisFrancais = [
     11 => 'Novembre', 12 => 'Décembre'
 ];
 
-$monthYear = $moisFrancais[4] . " " . $year;
+$monthYear = $moisFrancais[$month] . " " . $year;
 ?>
 
 <!DOCTYPE html>
