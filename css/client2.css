@@ -23,11 +23,12 @@ html, body {
     overflow: auto; /* Ajoute un défilement si le contenu dépasse */
 }
 
-#calendar-header {
+.calendar-header a {
     background-color: white;
     border-radius: 20px;
     text-decoration: none;
 }
+
 
 /* ====== ANIMATION APPARITION ====== */
 @keyframes fadeInBlock {
