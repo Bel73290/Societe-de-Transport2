@@ -85,8 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Gérer la navigation du calendrier
-$month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
-$year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+$month = isset($_GET['month']) && is_numeric($_GET['month']) ? (int)$_GET['month'] : date('m');
+$year = isset($_GET['year']) && is_numeric($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
 // Fonction pour générer un calendrier
 function generateCalendar($month, $year) {
