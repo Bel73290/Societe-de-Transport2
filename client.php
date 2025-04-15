@@ -73,7 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
-            echo "<button type='submit'>Valider</button>";
+            echo "<a href='confirmation.php?selected_horaire=$horaireId&selected_date=$selectedDate'>";
+            echo "<button type='button'>Valider</button>";
+            echo "</a>";
             echo "</form>";
         } else {
             echo "<p>Aucune tranche horaire disponible pour cette date.</p>";
