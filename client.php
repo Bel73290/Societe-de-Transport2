@@ -85,22 +85,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Gérer la navigation du calendrier
-$month = isset($_GET['month']) && is_numeric($_GET['month']) ? (int) $_GET['month'] : (int) date('n');
-$year = isset($_GET['year']) && is_numeric($_GET['year']) ? (int) $_GET['year'] : (int) date('Y');
-
-
-// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
-if ($month < 1 || $month > 12) {
-    $month = date('m');
-}
-
-$moisFrancais = [
-    1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
-    6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
-    11 => 'Novembre', 12 => 'Décembre'
-];
-
-$monthYear = $moisFrancais[$month] . " " . $year;
+$month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
+$year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
 // Fonction pour générer un calendrier
 function generateCalendar($month, $year) {
@@ -144,6 +130,19 @@ $prevYear = $month == 1 ? $year - 1 : $year;
 $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
 
+
+// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
+if ($month < 1 || $month > 12) {
+    $month = date('m');
+}
+
+$moisFrancais = [
+    1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
+    6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
+    11 => 'Novembre', 12 => 'Décembre'
+];
+
+$monthYear = $moisFrancais[$month] . " " . $year;
 ?>
 
 <!DOCTYPE html>
@@ -174,4 +173,3 @@ $nextYear = $month == 12 ? $year + 1 : $year;
     <script src="js/client.js" defer></script>
 </body>
 </html>
-
