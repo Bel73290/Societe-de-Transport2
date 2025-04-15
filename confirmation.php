@@ -8,10 +8,15 @@ if (!isset($_SESSION['id'])) {
 }
 
 // Vérifie si les données de livraison sont passées
-if (!isset($_POST['selected_date']) || !isset($_POST['selected_horaire'])) {
+// Support à la fois POST et GET
+$selectedDate = $_POST['selected_date'] ?? $_GET['selected_date'] ?? null;
+$selectedHoraireId = $_POST['selected_horaire'] ?? $_GET['selected_horaire'] ?? null;
+
+if (!$selectedDate || !$selectedHoraireId) {
     header("Location: index.php");
     exit();
 }
+
 
 $selectedDate = $_POST['selected_date'];
 $selectedHoraireId = $_POST['selected_horaire'];
