@@ -7,16 +7,16 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-// Vérifie si les données sont envoyées, avec une valeur par défaut en cas d'absence
+
 $selectedDate = $_POST['selected_date'] ?? $_GET['selected_date'] ?? null;
 $selectedHoraireId = $_POST['selected_horaire'] ?? $_GET['selected_horaire'] ?? null;
 
 if (!$selectedDate || !$selectedHoraireId) {
-    header("Location: index.php"); // Redirection en cas de données manquantes
+    header("Location: index.php"); 
     exit();
 }
 
-// Récupère les infos de la tranche horaire
+
 $query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = ?";
 $stmt = mysqli_prepare($conn, $query);
 mysqli_stmt_bind_param($stmt, "i", $selectedHoraireId);

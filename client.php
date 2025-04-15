@@ -130,6 +130,12 @@ $prevYear = $month == 1 ? $year - 1 : $year;
 $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
 
+
+// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
+if ($month < 1 || $month > 12) {
+    $month = date('m');
+}
+
 $moisFrancais = [
     1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
     6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
