@@ -133,7 +133,7 @@ $nextYear = $month == 12 ? $year + 1 : $year;
 
 // Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
 if ($month < 1 || $month > 12) {
-    $month = date('m');
+    $month = 4;
 }
 
 $moisFrancais = [
