@@ -27,6 +27,17 @@ html, body {
     background-color: white;
     border-radius: 20px;
     text-decoration: none;
+    padding: 8px 16px;
+    color: #333; /* Couleur du texte */
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.calendar-header a:hover {
+    background-color: #f0f0f0;
+    color: #000;
 }
 
 
