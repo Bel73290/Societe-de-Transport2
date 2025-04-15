@@ -33,20 +33,23 @@ if ($row = mysqli_fetch_assoc($result)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmation</title>
-    <meta http-equiv="refresh" content="5;url=index.php">
-    <link rel="stylesheet" href="css/confirmation.css">
-</head>
-<body>
-    <div class="confirmation-box">
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Confirmation</title>
+        <meta http-equiv="refresh" content="5;url=index.php">
+        <link rel="stylesheet" href="css/confirmation.css">
+    </head>
+    <body>
+        <div class="confirmation-box">
         <h1>Livraison confirmée !</h1>
-        <p>Votre colis sera livré le <strong><?= htmlspecialchars($selectedDate) ?></strong></p>
-        <p>entre <strong><?= $heureDebut ?></strong> et <strong><?= $heureFin ?></strong>.</p>
+        <?php
+            echo "<p>Votre colis sera livré le " . htmlspecialchars($selectedDate) . ".</p>";
+            echo "<p>entre " . $heureDebut . " et " . $heureFin . ".</p>";
+        ?>
         <p class="timer">Redirection vers l'accueil dans 5 secondes...</p>
-    </div>
-</body>
+        </div>
+
+    </body>
 </html>
 
