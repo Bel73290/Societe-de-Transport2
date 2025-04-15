@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_num_rows($resultHoraire) > 0) {
             echo "<h2>Horaires disponibles pour le $selectedDate</h2>";
-            echo "<form id='horaire-form' method='POST' action=''>";
+            echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
                 $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
