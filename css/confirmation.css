@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.confirmation-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.confirmation-box h1 {
+    color: #1373c2;
+    margin-bottom: 20px;
+}
+
+.confirmation-box p {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.confirmation-box .timer {
+    margin-top: 20px;
+    font-style: italic;
+    color: gray;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
