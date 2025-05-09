@@ -73,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
 
             $id_client = mysqli_insert_id($conn);
 
-            // Insertion dans Colis avec id_depot
-            $queryColis = "INSERT INTO Colis (code_colis, id_client, id_depot) VALUES (?, ?, ?)";
+            // Insertion dans Colis (structure originale conservée)
+            $queryColis = "INSERT INTO Colis (code_colis, id_client) VALUES (?, ?)";
             $stmtColis = mysqli_prepare($conn, $queryColis);
-            mysqli_stmt_bind_param($stmtColis, "sii", $code_colis, $id_client, $defaultDepotId);
+            mysqli_stmt_bind_param($stmtColis, "si", $code_colis, $id_client);
             mysqli_stmt_execute($stmtColis);
         }
 
@@ -88,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['excelFile'])) {
     }
 }
 ?>
+
 
 
 
