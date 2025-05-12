@@ -37,11 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $idEmploye = "3"; // Pas d'employé assigné
         $statut = 'En attente'; // Statut initial
         $commentaire = ''; // Commentaire vide par défaut
+        $depot = "1";
 
         // Insérer dans la table livraison
         $queryLivraison = "
-            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
-            VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate')
+            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
+            VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate', '$depot')
         ";
 
         // Exécuter la requête d'insertion
