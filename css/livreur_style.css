@@ -1,24 +1,115 @@
-.tournée-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* ===================  LIVREUR STYLE  =================== */
+
+/* ----- Base ----- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{ box-sizing:border-box; }
+
+body{
+    margin:0;
+    font-family:"Poppins",sans-serif;
+    background:#f3f4f8;          /* fond gris pâle */
+    color:#222;                  /* texte foncé par défaut */
 }
-.livraison-card {
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: 50%;
-    margin: 10px;
-    border-radius: 10px;
-    background-color: #f9f9f9;
+
+/* ----- En-tête ----- */
+.entete-livreur{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 4%;
 }
-.livraison-card form {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+.bonjour{
+    font-weight:600;
+    font-size:1.1rem;
 }
-.livraison-card button {
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
+.titre-tournee{
+    margin:0 auto;
+    text-align:center;
+    font-size:2rem;
+    font-weight:700;
+    color:#333;
+}
+
+/* ----- Bandeaux flash (succès / erreur) ----- */
+.flash{
+    text-align:center;
+    padding:.7rem 1rem;
+    margin:0;
+    font-weight:600;
+}
+.flash.success{ background:#26a65b; color:#fff; }
+.flash.error  { background:#d64541; color:#fff; }
+
+/* ----- Conteneur des cartes ----- */
+.tournee-container{
+    display:flex;                 /* pile verticale centrée */
+    flex-direction:column;
+    align-items:center;
+    gap:2rem;
+    margin-top:1rem;
+}
+
+/* ----- Carte colis ----- */
+.livraison-card{
+    width:min(640px,90%);
+    background:#ffffff;
+    border-radius:18px;
+    padding:2rem 2.5rem;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+
+    /* grille interne 2 colonnes */
+    display:grid;
+    grid-template-areas:
+        "client  adresse"
+        "code    adresse"
+        "creneau creneau"
+        "livre   nonlivre";
+    grid-template-columns:1fr 1fr;
+    gap:.6rem 1.5rem;
+    font-size:1.05rem;
+}
+.livraison-card p      { margin:.25rem 0; }
+.livraison-card .client{ grid-area:client; }
+.livraison-card .adresse{ grid-area:adresse; }
+.livraison-card .code{ grid-area:code; }
+.livraison-card .creneau{ grid-area:creneau; }
+
+.livraison-card .btn-left { grid-area:livre; }
+.livraison-card .btn-right{ grid-area:nonlivre; justify-self:end; }
+
+/* ----- Boutons ----- */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    border:none;
+    border-radius:8px;
+    padding:.55rem 1.4rem;
+    font-size:.95rem;
+    font-weight:500;
+    cursor:pointer;
+    color:#fff;
+    transition:transform .15s ease;
+}
+.btn.success{ background:#26a65b; }
+.btn.danger { background:#d64541; }
+.btn:hover  { transform:translateY(-2px); }
+
+/* ----- Responsive mobiles ----- */
+@media (max-width:480px){
+    .entete-livreur{ flex-direction:column; gap:.5rem; }
+    .titre-tournee{ font-size:1.4rem; }
+    .livraison-card{ padding:1.2rem 1rem; }
+    .livraison-card{
+        grid-template-areas:
+            "client"
+            "adresse"
+            "code"
+            "creneau"
+            "livre"
+            "nonlivre";
+        grid-template-columns:1fr;
+    }
+    .btn-right{ justify-self:start; }
 }

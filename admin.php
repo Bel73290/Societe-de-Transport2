@@ -1,3 +1,12 @@
+<?php
+session_start();             
+
+/* message flash éventuel */
+if (!empty($_SESSION['flash'])) {
+    echo '<div class="alert alert-info">'.htmlspecialchars($_SESSION['flash']).'</div>';
+    unset($_SESSION['flash']);
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -10,10 +19,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <form action="include/generer_tournee.php" method="POST"
+              onsubmit="return confirm('Générer la tournée pour aujourd’hui ?');"
+            style="margin-bottom:1rem">
+            <button type="submit" class="btn btn-primary">
+                Générer la tournée du jour
+            </button>
+        </form>
+    <?php endif; ?>
     <div id="app">
         <header>
             <div class="header-left">
-                <img src="logo.png" alt="Logo de l'entreprise" class="logo">
+                <img src="img/logo.png" alt="Logo de l'entreprise" class="logo">
                 <h1>Entreprise XYZ</h1>
             </div>
             <div class="header-right">
