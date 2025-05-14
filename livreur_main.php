@@ -21,42 +21,46 @@ require_once __DIR__ . '/db/db_connect.php';
 /* ---------- 2. Récupération de la tournée du jour et filtrage par TrancheHoraire + Distance en Km ---------- */
 $sql = "
 SELECT
-    Livraison.id              AS id_livraison,       
-    Colis.id                  AS id_colis,          
-    Colis.code_colis,                                 
-    Utilisateur.nom           AS nom_client,         
-    Utilisateur.adresse,                             
+    Livraison.id              AS id_livraison,      
+    Colis.id                  AS id_colis,           
+    Colis.code_colis,                               
+    Utilisateur.nom           AS nom_client,        
+    Utilisateur.adresse,                         
     TrancheHoraire.heure_debut,                      
-    TrancheHoraire.heure_fin,                        
+    TrancheHoraire.heure_fin,                     
 
-
-    -- Utilisation de la formule de la loi des cosinus sphérique pour Calculer de la distance (en km) entre le dépôt et l'adresse du client :
-    --Formule : d = R * acos(cos(lat1) * cos(lat2) * cos(lon2 - lon1) + sin(lat1) * sin(lat2))
+    /* 
+     * Utilisation de la formule de la loi des cosinus sphérique :
+     * formule : d = R * acos(cos(lat1) * cos(lat2) * cos(lon2 - lon1) + sin(lat1) * sin(lat2))
+     * avec R = 6371 km, et lat/lon en radians
+     */
 
 
     (
         6371 * ACOS(
-            COS(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *     -- cos(latitude du dépôt)
-            COS(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1))) * -- cos(latitude du client)
-            COS(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', -1))  -- différence des longitudes
-              - RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', -1))) +
-            SIN(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *     -- sin(latitude du dépôt)
-            SIN(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1)))   -- sin(latitude du client)
+            COS(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *
+            COS(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1))) *
+            COS(
+                RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', -1)) -
+                RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', -1))
+            ) +
+            SIN(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *
+            SIN(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1)))
         )
-    ) AS distance_km                        -- Obtention des distances en kilomètres
+    ) AS distance_km
 
+FROM Livraison
+JOIN Colis          ON Colis.id = Livraison.id_colis                      /* Associe livraison au colis */
+JOIN TrancheHoraire ON TrancheHoraire.id = Livraison.id_tranche_horaire  /* Associe livraison à son créneau horaire */
+JOIN Utilisateur    ON Utilisateur.id = Colis.id_client                   /* Associe colis à son client */
+JOIN Depot          ON Livraison.id_depot = Depot.id                      /* Associe livraison à son dépôt d'origine */
 
-FROM   Livraison
-JOIN   Colis          ON Colis.id = Livraison.id_colis            
-JOIN   TrancheHoraire ON TrancheHoraire.id = Livraison.id_tranche_horaire 
-JOIN   Utilisateur    ON Utilisateur.id = Colis.id_client        
-JOIN   Depot          ON Livraison.id_depot = Depot.id            
-WHERE  Livraison.id_employe = ?                                   -- Filtrer pour le livreur connecté
-  AND  DATE(Livraison.date_livraison) = CURDATE()                 -- Ne garder que les livraisons du jour
-  AND  Utilisateur.coordonneeGps IS NOT NULL                      -- Le client doit avoir une position GPS
-  AND  Depot.coordonneeGps IS NOT NULL                            -- Le dépôt aussi
-ORDER  BY TrancheHoraire.heure_debut ASC, distance_km ASC         -- Tri par trancheHoraire puis par distance
+WHERE Livraison.id_employe = ?                                            /* Limite aux livraisons du livreur connecté */
+  AND DATE(Livraison.date_livraison) = CURDATE()                         /* Ne garde que les livraisons du jour */
+  AND Utilisateur.coordonneeGps IS NOT NULL                              /* Nécessite des coordonnées côté client */
+  AND Depot.coordonneeGps IS NOT NULL                                    /* Nécessite des coordonnées côté dépôt */
 
+ORDER BY TrancheHoraire.heure_debut ASC, distance_km ASC                 /* Trie : d'abord par heure, puis par distance */
 ";
 
 $stmt = mysqli_prepare($conn, $sql);
