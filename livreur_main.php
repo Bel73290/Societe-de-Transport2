@@ -46,7 +46,7 @@ WHERE  Livraison.id_employe = ?
   AND  DATE(Livraison.date_livraison) = CURDATE()
   AND  Utilisateur.coordonneeGps IS NOT NULL
   AND  Depot.coordonneeGps IS NOT NULL
-ORDER  BY distance_km ASC, TrancheHoraire.heure_debut ASC
+ORDER  BY TrancheHoraire.heure_debut ASC, distance_km ASC
 ";
 
 $stmt = mysqli_prepare($conn, $sql);
