@@ -50,17 +50,17 @@ SELECT
     ) AS distance_km
 
 FROM Livraison
-JOIN Colis          ON Colis.id = Livraison.id_colis                      /* Associe livraison au colis */
-JOIN TrancheHoraire ON TrancheHoraire.id = Livraison.id_tranche_horaire  /* Associe livraison à son créneau horaire */
-JOIN Utilisateur    ON Utilisateur.id = Colis.id_client                   /* Associe colis à son client */
-JOIN Depot          ON Livraison.id_depot = Depot.id                      /* Associe livraison à son dépôt d'origine */
+JOIN Colis          ON Colis.id = Livraison.id_colis                      
+JOIN TrancheHoraire ON TrancheHoraire.id = Livraison.id_tranche_horaire  
+JOIN Utilisateur    ON Utilisateur.id = Colis.id_client                  
+JOIN Depot          ON Livraison.id_depot = Depot.id                     
 
 WHERE Livraison.id_employe = ?                                            /* Limite aux livraisons du livreur connecté */
   AND DATE(Livraison.date_livraison) = CURDATE()                         /* Ne garde que les livraisons du jour */
-  AND Utilisateur.coordonneeGps IS NOT NULL                              /* Nécessite des coordonnées côté client */
-  AND Depot.coordonneeGps IS NOT NULL                                    /* Nécessite des coordonnées côté dépôt */
+  AND Utilisateur.coordonneeGps IS NOT NULL                            
+  AND Depot.coordonneeGps IS NOT NULL                                   
 
-ORDER BY TrancheHoraire.heure_debut ASC, distance_km ASC                 /* Trie : d'abord par heure, puis par distance */
+ORDER BY TrancheHoraire.heure_debut ASC, distance_km ASC                 /* Trie : d'abord par tranche, puis par distance */
 ";
 
 $stmt = mysqli_prepare($conn, $sql);
