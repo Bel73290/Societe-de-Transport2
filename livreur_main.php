@@ -27,15 +27,28 @@ SELECT
     Utilisateur.nom           AS nom_client,
     Utilisateur.adresse,
     TrancheHoraire.heure_debut,
-    TrancheHoraire.heure_fin
+    TrancheHoraire.heure_fin,
+    (
+        6371 * ACOS(
+            COS(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *
+            COS(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1))) *
+            COS(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', -1)) - RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', -1))) +
+            SIN(RADIANS(SUBSTRING_INDEX(Depot.coordonneeGps, ',', 1))) *
+            SIN(RADIANS(SUBSTRING_INDEX(Utilisateur.coordonneeGps, ',', 1)))
+        )
+    ) AS distance_km
 FROM   Livraison
 JOIN   Colis          ON Colis.id = Livraison.id_colis
 JOIN   TrancheHoraire ON TrancheHoraire.id = Livraison.id_tranche_horaire
 JOIN   Utilisateur    ON Utilisateur.id = Colis.id_client
+JOIN   Depot          ON Livraison.id_depot = Depot.id
 WHERE  Livraison.id_employe = ?
   AND  DATE(Livraison.date_livraison) = CURDATE()
-ORDER  BY TrancheHoraire.heure_debut
+  AND  Utilisateur.coordonneeGps IS NOT NULL
+  AND  Depot.coordonneeGps IS NOT NULL
+ORDER  BY distance_km ASC, TrancheHoraire.heure_debut ASC
 ";
+
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, 'i', $employee_id);
 mysqli_stmt_execute($stmt);
