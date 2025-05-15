@@ -8,7 +8,6 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
-
 $idUtilisateur = $_SESSION['id'];
 
 // Vérifier la table Colis pour récupérer l'ID du colis associé à l'utilisateur
@@ -40,8 +39,6 @@ $res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraireId, $statut
 if (!$res) {
     die("Erreur SQL : " . mysqli_error($conn));
 }
-
-
 
 $query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = ?";
 $stmt = mysqli_prepare($conn, $query);
@@ -78,4 +75,3 @@ if ($row = mysqli_fetch_assoc($result)) {
 
     </body>
 </html>
-
