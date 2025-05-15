@@ -1,32 +1,31 @@
 <?php
 session_start();
-include_once 'db/db_connect.php'; // Connexion à la base de données
+include_once 'db/db_connect.php';
+include 'include/Crud_colis.php';
 
-// Vérification de connexion utilisateur
 if (!isset($_SESSION['id'])) {
-    header("Location: index.php"); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: index.php");
     exit();
 }
 
-$idUtilisateur = $_SESSION['id']; // ID utilisateur connecté
+$idUtilisateur = $_SESSION['id'];
 
-// Vérifier la connexion à la base de données
 if (!$conn || $conn === false) {
     die("Erreur : Connexion à la base de données impossible.");
 }
 
-// Vérifier la table `Colis` pour récupérer l'ID du colis associé à l'utilisateur
+// Récupération du colis associé à l'utilisateur
 $queryColis = "SELECT id FROM Colis WHERE id_client = '$idUtilisateur' LIMIT 1";
 $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     $rowColis = mysqli_fetch_assoc($resultColis);
-    $idColis = $rowColis['id']; // ID du colis récupéré
+    $idColis = $rowColis['id'];
 } else {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
 
-// Gestion des requêtes POST
+// Gestion des requêtes POST pour l'affichage des horaires
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['selected_horaire']) && isset($_POST['selected_date'])) {
         // Récupérer les données POST
@@ -48,17 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Exécuter la requête d'insertion
         $resultLivraison = mysqli_query($conn, $queryLivraison);
 
-         // Si l'insertion réussit, rediriger vers la page confirmation
-         if ($resultLivraison) {
-            header("Location: confirmation.php?selected_date=$selectedDate&selected_horaire=$selectedHoraire");
-            exit(); // Important pour éviter toute exécution supplémentaire
-        } else {
-            echo "Erreur lors de l'insertion dans la base de données.";
-        }
+        exit();
     } elseif (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
-        // Récupérer les tranches horaires disponibles pour la date sélectionnée
         $queryHoraire = "SELECT * FROM TrancheHoraire";
         $resultHoraire = mysqli_query($conn, $queryHoraire);
 
@@ -71,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
-                $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
-                $heureFin = substr($row['heure_fin'], 0, 5);     // Ex : 10:00
+                $heureDebut = substr($row['heure_debut'], 0, 5);
+                $heureFin = substr($row['heure_fin'], 0, 5);
 
                 echo "<div class='horaire-item'>";
                 echo "<input type='radio' name='selected_horaire' value='$horaireId' required>";
@@ -89,11 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Gérer la navigation du calendrier
+// Navigation calendrier
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
-// Fonction pour générer un calendrier
+// Génération du calendrier
 function generateCalendar($month, $year) {
     $daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     $firstDayOfMonth = strtotime("$year-$month-01");
@@ -134,12 +126,6 @@ $prevMonth = $month == 1 ? 12 : $month - 1;
 $prevYear = $month == 1 ? $year - 1 : $year;
 $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
-
-
-// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
-if (!is_int($month)) {
-    $month = 4;
-}
 
 $moisFrancais = [
     1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
