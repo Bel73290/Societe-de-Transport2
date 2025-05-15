@@ -7,7 +7,6 @@ function insert_Livraison($conn, $id_colis, $id_employe, $id_tranche_horaire, $s
     $sql = "INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot) 
             VALUES ('$id_colis', '$id_employe', '$id_tranche_horaire', '$statut', '$date_livraison', '$id_depot')";
     global $debeug;
-    if ($debeug) echo $sql . "<br>";
     return mysqli_query($conn, $sql);
 }
 
