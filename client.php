@@ -39,18 +39,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $statut = 'En attente'; // Statut initial
         $commentaire = ''; // Commentaire vide par défaut
         $depot = "1";
-        console.log("Message 5");
+        echo "<script>console.log('Message ds1');</script>";
         $res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate, $depot);
-        console.log("Message 4");
+        echo "<script>console.log('Message d1');</script>";
         if (!$res) {
             die("Erreur SQL : " . mysqli_error($conn));
 
-            console.log("Message 3");
+            echo "<script>console.log('Message 31');</script>";
         }
-        console.log("Message 1");
+        echo "<script>console.log('Message 1');</script>";
         // ✅ Redirige après l'insertion
         header("Location: confirmation.php");
-        console.log("Message 2");
+        echo "<script>console.log('Message 2');</script>";
         exit();
     } elseif (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
