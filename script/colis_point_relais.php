@@ -36,7 +36,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             id_colis, id_employe, id_tranche_horaire,
             adresse_livraison, statut, date_livraison, id_depot
         )
-        VALUES (?, 0, ?, ?, 'en attente', NOW(), ?)
+        VALUES (?, 1, ?, ?, 'en attente', NOW(), ?)
     ";
     $stmt = mysqli_prepare($conn, $queryLivraison);
     mysqli_stmt_bind_param($stmt, "iisi", $id_colis, $idTrancheHoraire, $adresseRelais, $idDepotRelais);
