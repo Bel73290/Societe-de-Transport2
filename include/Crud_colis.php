@@ -1,6 +1,6 @@
 <?php
  
-/*Gestion des Livraisons*/,
+/*Gestion des Livraisons*/
 include '../db/db_connect.php'; 
 $debeug = true;
 
