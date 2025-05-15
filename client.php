@@ -146,7 +146,8 @@ $monthYear = $moisFrancais[$month] . " " . $year;
         <p>Sélectionnez une date pour afficher les horaires.</p>
     </div>
     <button id="back-button" style="display: none;">Retour</button>
-    <script src="js/client.js" defer></script>
+
 </body>
 </html>
 
+<script src="js/client.js" defer></script>
