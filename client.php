@@ -89,7 +89,13 @@ function generateCalendar($month, $year) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>";
+        $calendar .= "<td>
+    <form method='POST' action='client.php'>
+        <input type='hidden' name='selected_date' value='$isoDate'>
+        <button type='submit'>$currentDay</button>
+    </form>
+</td>";
+
         $currentDay++;
     }
 
@@ -146,8 +152,7 @@ $monthYear = $moisFrancais[$month] . " " . $year;
         <p>Sélectionnez une date pour afficher les horaires.</p>
     </div>
     <button id="back-button" style="display: none;">Retour</button>
-
+    <script src="js/client.js" defer></script>
 </body>
 </html>
 
-<script src="js/client.js" defer></script>
