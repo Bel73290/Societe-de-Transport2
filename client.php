@@ -39,10 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $statut = 'En attente'; // Statut initial
         $commentaire = ''; // Commentaire vide par défaut
         $depot = "1";
-        
+        console.log("Message 5");
         $res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate, $depot);
+        console.log("Message 4");
         if (!$res) {
             die("Erreur SQL : " . mysqli_error($conn));
+
+            console.log("Message 3");
         }
         console.log("Message 1");
         // ✅ Redirige après l'insertion
