@@ -38,15 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $statut = 'En attente'; // Statut initial
         $commentaire = ''; // Commentaire vide par défaut
         $depot = "1";
+        
+        insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate,$depot);
 
         // Insérer dans la table livraison
-        $queryLivraison = "
-            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
-            VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate', '$depot')
-        ";
+        ///$queryLivraison = "
+           // INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
+            //VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate', '$depot')
+        //";
 
         // Exécuter la requête d'insertion
-        $resultLivraison = mysqli_query($conn, $queryLivraison);
+        //$resultLivraison = mysqli_query($conn, $queryLivraison);
 
         exit();
     } elseif (isset($_POST['selected_date'])) {
@@ -134,7 +136,7 @@ $nextYear = $month == 12 ? $year + 1 : $year;
 
 // Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
 if (!is_int($month)) {
-    $month = 4;
+    $month = 5;
 }
 
 $moisFrancais = [
