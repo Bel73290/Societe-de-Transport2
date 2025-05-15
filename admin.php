@@ -27,13 +27,16 @@ for ($heure = 9; $heure <= 18; $heure++) {
 if ($annee !== '' && $semaine !== '') {
     $query = "
         SELECT u.nom, t.jour, t.heure_debut, t.heure_fin
-        FROM `horaire_employe` t
-        JOIN utilisateur u ON u.id = t.utilisateur_id
+        FROM Horaire_employe t
+        JOIN Utilisateur u ON u.id = t.utilisateur_id
         WHERE t.annee = " . intval($annee) . "
         AND t.semaine = " . intval($semaine) . "
     ";
 
     $result = mysqli_query($conn, $query);
+    if (!$result) {
+        die("Erreur dans la requête : " . mysqli_error($conn));
+    }
     while ($row = mysqli_fetch_assoc($result)) {
         $nom = $row['nom'];
         $jour = strtolower($row['jour']);
@@ -89,7 +92,7 @@ if (!empty($_SESSION['flash'])) {
                 <h3>Liste des employés</h3>
                 <ul class="employee-list">
                     <?php
-                    $empQuery = mysqli_query($conn, "SELECT id, nom FROM utilisateur WHERE types = 'employe'");
+                    $empQuery = mysqli_query($conn, "SELECT id, nom FROM Utilisateur WHERE types = 'employe'");
                     while ($emp = mysqli_fetch_assoc($empQuery)) {
                         echo '<li>' . htmlspecialchars($emp['nom']) . '</li>';
                     }
