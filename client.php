@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         console.log("Message 1");
         // ✅ Redirige après l'insertion
-        header("Location: confirmation.php?success=1");
+        header("Location: confirmation.php");
         console.log("Message 2");
         exit();
     } elseif (isset($_POST['selected_date'])) {
@@ -154,7 +154,7 @@ $monthYear = $moisFrancais[$month] . " " . $year;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendrier interactif</title>
+    <title>Transplac</title>
     <link rel="stylesheet" href="css/client2.css">
 </head>
 <body>
