@@ -1,16 +1,16 @@
 <?php 
-/*****  REDISTRIBUTION DES LIVRAISONS EXISTANTES ENTRE EMPLOYÉS DISPONIBLES *****/
+/*****  REDISTRIBUTION SIMPLE DES LIVRAISONS ENTRE EMPLOYÉS *****/
 require_once __DIR__.'/../db/db_connect.php';
 
-/* 1) livreurs disponibles */
+/* 1) Récupérer tous les livreurs SAUF l'employé 3 */
 $livreurs = [];
-$res = mysqli_query($conn, "SELECT id FROM Utilisateur WHERE types = 'employe'");
+$res = mysqli_query($conn, "SELECT id FROM Utilisateur WHERE types = 'employe' AND id != 3");
 while ($row = mysqli_fetch_assoc($res)) $livreurs[] = $row['id'];
 $nbLivreurs = count($livreurs);
 
-/* 2) récupérer les livraisons à réassigner (employé = 3, en attente aujourd’hui) */
+/* 2) Récupérer les livraisons à réassigner */
 $sql = "
-SELECT id, id_tranche_horaire
+SELECT id
 FROM Livraison
 WHERE statut = 'en attente'
   AND id_employe = 3
@@ -19,52 +19,22 @@ ORDER BY id
 ";
 $resLivraisons = mysqli_query($conn, $sql);
 
+/* 3) Répartition round-robin */
 $indexLivreur = 0;
 while ($livraison = mysqli_fetch_assoc($resLivraisons)) {
-    $slotId = $livraison['id_tranche_horaire'];
-    $assigned = false;
+    $nouvelEmploye = $livreurs[$indexLivreur];
 
-    for ($i = 0; $i < $nbLivreurs; $i++) {
-        $livreurId = $livreurs[$indexLivreur];
+    $stmt = mysqli_prepare($conn, "
+        UPDATE Livraison
+        SET id_employe = ?
+        WHERE id = ?
+    ");
+    mysqli_stmt_bind_param($stmt, "ii", $nouvelEmploye, $livraison['id']);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
 
-        /* Vérifie que le livreur est dispo pour ce créneau */
-        $dispo = mysqli_query($conn, "
-            SELECT 1 FROM Horaires_employe
-            WHERE id_employe = $livreurId AND id_tranche_horaire = $slotId
-        ");
-        if (mysqli_num_rows($dispo) == 0) {
-            $indexLivreur = ($indexLivreur + 1) % $nbLivreurs;
-            continue;
-        }
-
-        /* Vérifie qu’il n’a pas déjà une livraison à ce créneau aujourd’hui */
-        $occupé = mysqli_query($conn, "
-            SELECT 1 FROM Livraison
-            WHERE id_employe = $livreurId
-              AND id_tranche_horaire = $slotId
-              AND DATE(date_livraison) = CURDATE()
-        ");
-        if (mysqli_num_rows($occupé) > 0) {
-            $indexLivreur = ($indexLivreur + 1) % $nbLivreurs;
-            continue;
-        }
-
-        /* Mise à jour de l’employé sur cette livraison */
-        mysqli_query($conn, "
-            UPDATE Livraison
-            SET id_employe = $livreurId
-            WHERE id = {$livraison['id']}
-        ");
-
-        $assigned = true;
-        $indexLivreur = ($indexLivreur + 1) % $nbLivreurs;
-        break;
-    }
-
-    if (!$assigned) {
-        // Aucun livreur dispo pour ce créneau, on ignore cette livraison
-        continue;
-    }
+    $indexLivreur = ($indexLivreur + 1) % $nbLivreurs;
 }
 
 mysqli_close($conn);
+
