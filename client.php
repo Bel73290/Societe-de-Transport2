@@ -1,58 +1,35 @@
 <?php
 session_start();
-include_once 'db/db_connect.php'; // Connexion à la base de données
+include_once 'db/db_connect.php';
+include 'include/Crud_colis.php';
 
-// Vérification de connexion utilisateur
 if (!isset($_SESSION['id'])) {
-    header("Location: index.php"); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: index.php");
     exit();
 }
 
-$idUtilisateur = $_SESSION['id']; // ID utilisateur connecté
+$idUtilisateur = $_SESSION['id'];
 
-// Vérifier la connexion à la base de données
 if (!$conn || $conn === false) {
     die("Erreur : Connexion à la base de données impossible.");
 }
 
-// Vérifier la table `Colis` pour récupérer l'ID du colis associé à l'utilisateur
+// Récupération du colis associé à l'utilisateur
 $queryColis = "SELECT id FROM Colis WHERE id_client = '$idUtilisateur' LIMIT 1";
 $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     $rowColis = mysqli_fetch_assoc($resultColis);
-    $idColis = $rowColis['id']; // ID du colis récupéré
+    $idColis = $rowColis['id'];
 } else {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
 
-// Gestion des requêtes POST
+// Gestion des requêtes POST pour l'affichage des horaires
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['selected_horaire']) && isset($_POST['selected_date'])) {
-        // Récupérer les données POST
-        $selectedHoraire = mysqli_real_escape_string($conn, $_POST['selected_horaire']);
+    if (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
-        // Valeurs pour insertion dans livraison
-        $idEmploye = "3"; // Pas d'employé assigné
-        $statut = 'En attente'; // Statut initial
-        $commentaire = ''; // Commentaire vide par défaut
-        $depot = "1";
-
-        // Insérer dans la table livraison
-        $queryLivraison = "
-            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
-            VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate', '$depot')
-        ";
-
-        // Exécuter la requête d'insertion
-        $resultLivraison = mysqli_query($conn, $queryLivraison);
-
-        exit();
-    } elseif (isset($_POST['selected_date'])) {
-        $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
-
-        // Récupérer les tranches horaires disponibles pour la date sélectionnée
         $queryHoraire = "SELECT * FROM TrancheHoraire";
         $resultHoraire = mysqli_query($conn, $queryHoraire);
 
@@ -74,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
-            echo "<a href='confirmation.php?selected_horaire=$horaireId&selected_date=$selectedDate'>";
+            echo "<a href='confirmation.php'>";
             echo "<button type='button'>Valider</button>";
             echo "</a>";
             echo "</form>";
@@ -85,11 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Gérer la navigation du calendrier
+// Navigation calendrier
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
-// Fonction pour générer un calendrier
+// Génération du calendrier
 function generateCalendar($month, $year) {
     $daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     $firstDayOfMonth = strtotime("$year-$month-01");
@@ -131,10 +108,9 @@ $prevYear = $month == 1 ? $year - 1 : $year;
 $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
 
-
 // Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
 if (!is_int($month)) {
-    $month = 4;
+    $month = 5;
 }
 
 $moisFrancais = [
@@ -171,6 +147,8 @@ $monthYear = $moisFrancais[$month] . " " . $year;
         <p>Sélectionnez une date pour afficher les horaires.</p>
     </div>
     <button id="back-button" style="display: none;">Retour</button>
-    <script src="js/client.js" defer></script>
+
 </body>
 </html>
+
+<script src="js/client.js" defer></script>
