@@ -42,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
-                $heureDebut = substr($row['heure_debut'], 0, 5);
-                $heureFin = substr($row['heure_fin'], 0, 5);
+                $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
+                $heureFin = substr($row['heure_fin'], 0, 5);     // Ex : 10:00
 
                 echo "<div class='horaire-item'>";
                 echo "<input type='radio' name='selected_horaire' value='$horaireId' required>";
@@ -51,9 +51,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
-            echo "<button type='submit'>Valider</button>";
+            echo "<a href='confirmation.php?selected_horaire=$horaireId&selected_date=$selectedDate'>";
+            echo "<button type='button'>Valider</button>";
+            echo "</a>";
             echo "</form>";
-
         } else {
             echo "<p>Aucune tranche horaire disponible pour cette date.</p>";
         }
@@ -89,13 +90,7 @@ function generateCalendar($month, $year) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        $calendar .= "<td>
-    <form method='POST' action='client.php'>
-        <input type='hidden' name='selected_date' value='$isoDate'>
-        <button type='submit'>$currentDay</button>
-    </form>
-</td>";
-
+        $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>";
         $currentDay++;
     }
 
@@ -152,7 +147,8 @@ $monthYear = $moisFrancais[$month] . " " . $year;
         <p>Sélectionnez une date pour afficher les horaires.</p>
     </div>
     <button id="back-button" style="display: none;">Retour</button>
-    <script src="js/client.js" defer></script>
+
 </body>
 </html>
 
+<script src="js/client.js" defer></script>
