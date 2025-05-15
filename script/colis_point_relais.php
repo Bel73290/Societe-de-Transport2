@@ -39,8 +39,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     mysqli_stmt_bind_param($stmt, "iiii", $id_colis, $idEmploye, $idTrancheHoraire, $idDepotRelais);
     mysqli_stmt_execute($stmt);
 
-    // Mettre à jour le statut du colis en "en cours"
-    $updateStatut = "UPDATE Colis SET statut = 'en cours' WHERE id = ?";
+    // Mettre à jour le statut du colis en "en livraison"
+    $updateStatut = "UPDATE Colis SET statut = 'en livraison' WHERE id = ?";
     $stmtUpdate = mysqli_prepare($conn, $updateStatut);
     if ($stmtUpdate) {
         mysqli_stmt_bind_param($stmtUpdate, "i", $id_colis);
