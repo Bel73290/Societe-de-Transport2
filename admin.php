@@ -92,7 +92,7 @@ if (!empty($_SESSION['flash'])) {
                 <h3>Liste des employés</h3>
                 <ul class="employee-list">
                     <?php
-                    $empQuery = mysqli_query($conn, "SELECT id, nom FROM utilisateur WHERE types = 'employe'");
+                    $empQuery = mysqli_query($conn, "SELECT id, nom FROM Utilisateur WHERE types = 'employe'");
                     while ($emp = mysqli_fetch_assoc($empQuery)) {
                         echo '<li>' . htmlspecialchars($emp['nom']) . '</li>';
                     }
