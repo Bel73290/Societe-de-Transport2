@@ -6,11 +6,10 @@ $debeug = true;
 function insert_Livraison($conn, $id_colis, $id_employe, $id_tranche_horaire, $statut, $date_livraison, $id_depot) {
     $sql = "INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot) 
             VALUES ('$id_colis', '$id_employe', '$id_tranche_horaire', '$statut', '$date_livraison', '$id_depot')";
-    global $debeug;
     return mysqli_query($conn, $sql);
 }
 
-function update_Livraison($conn, $id, $id_colis, $id_employe, $id_tranche_horaire, $statut, $date_livraison, $id_depot) {
+function update_Livraison($conn, $id_colis, $id_employe, $id_tranche_horaire, $statut, $date_livraison, $id_depot) {
     $sql = "UPDATE Livraison SET 
                 id_colis='$id_colis', 
                 id_employe='$id_employe', 
@@ -19,30 +18,22 @@ function update_Livraison($conn, $id, $id_colis, $id_employe, $id_tranche_horair
                 date_livraison='$date_livraison', 
                 id_depot='$id_depot' 
             WHERE id = $id";
-    global $debeug;
-    if ($debeug) echo $sql . "<br>";
     return mysqli_query($conn, $sql);
 }
 
 function delete_Livraison($conn, $id) {
     $sql = "DELETE FROM Livraison WHERE id = $id";
-    global $debeug;
-    if ($debeug) echo $sql . "<br>";
     return mysqli_query($conn, $sql);
 }
 
-function select_Livraison($conn, $id) {
-    $sql = "SELECT * FROM Livraison WHERE id = $id";
-    global $debeug;
-    if ($debeug) echo $sql . "<br>";
+function select_Livraison($conn, $id_colis) {
+    $sql = "SELECT * FROM Livraison WHERE id_colis = $id_colis";
     $res = mysqli_query($conn, $sql);
     return mysqli_fetch_assoc($res);
 }
 
 function list_Livraisons($conn) {
     $sql = "SELECT * FROM Livraison";
-    global $debeug;
-    if ($debeug) echo $sql . "<br>";
     $res = mysqli_query($conn, $sql);
     return rs_to_tab($res);
 }

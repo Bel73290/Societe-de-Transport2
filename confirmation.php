@@ -35,9 +35,16 @@ $statut = 'En attente';
 $commentaire = '';
 $depot = "1";
 
-$res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraireId, $statut, $selectedDate, $depot);
-if (!$res) {
-    die("Erreur SQL : " . mysqli_error($conn));
+if (select_Livraison($conn, $idColis) != null){
+    $res = update_Livraison($conn, $idColis, $idEmploye, $selectedHoraireId, $statut, $selectedDate, $depot);
+    if (!$res) {
+        die("Erreur SQL : " . mysqli_error($conn));
+    }
+} else {
+    $res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraireId, $statut, $selectedDate, $depot);
+    if (!$res) {
+        die("Erreur SQL : " . mysqli_error($conn));
+    }
 }
 
 $query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = ?";
