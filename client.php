@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once 'db/db_connect.php'; // Connexion à la base de données
-include 'include/Crud_colis.php'
+include 'include/Crud_colis.php';
 
 // Vérification de connexion utilisateur
 if (!isset($_SESSION['id'])) {
