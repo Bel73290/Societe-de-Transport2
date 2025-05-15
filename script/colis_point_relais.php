@@ -1,21 +1,11 @@
 <?php
-// Script exécutable automatiquement par CRON
+// Script exécutable automatiquement par CRON 
 
 require_once __DIR__ . '/../db/db_connect.php';
 
 $idDepotRelais = 2; // ID du point relais dans la table Depot
 $idTrancheHoraire = 1; // Tranche horaire par défaut
-$idEmploye = 1; // Employé affecté aux livraisons automatiques
-
-// Récupérer l'adresse du point relais depuis la table Depot
-$adresseRelais = '';
-$resDepot = mysqli_query($conn, "SELECT adresse FROM Depot WHERE id = $idDepotRelais LIMIT 1");
-if ($rowDepot = mysqli_fetch_assoc($resDepot)) {
-    $adresseRelais = $rowDepot['adresse'];
-} else {
-    echo "Erreur : le dépôt point relais avec l'ID $idDepotRelais est introuvable.\n";
-    exit();
-}
+$idEmploye = 1; // Employé (livreur) affecté aux livraisons automatiques
 
 // Récupérer les colis en stock depuis au moins 14 jours
 $query = "
@@ -31,13 +21,13 @@ $count = 0;
 while ($row = mysqli_fetch_assoc($result)) {
     $id_colis = $row['id'];
 
-    // Créer une livraison vers le point relais
+    // Créer une livraison vers le point relais sans adresse_livraison, et avec date du lendemain
     $queryLivraison = "
         INSERT INTO Livraison (
             id_colis, id_employe, id_tranche_horaire,
-            adresse_livraison, statut, date_livraison, id_depot
+            statut, date_livraison, id_depot
         )
-        VALUES (?, ?, ?, ?, 'en attente', NOW(), ?)
+        VALUES (?, ?, ?, 'en attente', DATE_ADD(CURDATE(), INTERVAL 1 DAY), ?)
     ";
     $stmt = mysqli_prepare($conn, $queryLivraison);
 
@@ -46,7 +36,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         continue;
     }
 
-    mysqli_stmt_bind_param($stmt, "iiisi", $id_colis, $idEmploye, $idTrancheHoraire, $adresseRelais, $idDepotRelais);
+    mysqli_stmt_bind_param($stmt, "iiii", $id_colis, $idEmploye, $idTrancheHoraire, $idDepotRelais);
     mysqli_stmt_execute($stmt);
 
     // Mettre à jour le statut du colis en "en cours"
@@ -62,9 +52,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     $count++;
 }
 
-// Affiche nombre de livraison relais
+// Affiche nb livraison en relais 
 echo "[$count] livraisons vers le point relais créées.\n";
 
 mysqli_close($conn);
 ?>
+
 
