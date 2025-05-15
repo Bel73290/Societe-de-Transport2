@@ -27,28 +27,7 @@ if ($resultColis && mysqli_num_rows($resultColis) > 0) {
 
 // Gestion des requêtes POST pour l'affichage des horaires
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['selected_horaire']) && isset($_POST['selected_date'])) {
-        // Récupérer les données POST
-        $selectedHoraire = mysqli_real_escape_string($conn, $_POST['selected_horaire']);
-        $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
-
-        // Valeurs pour insertion dans livraison
-        $idEmploye = "3"; // Pas d'employé assigné
-        $statut = 'En attente'; // Statut initial
-        $commentaire = ''; // Commentaire vide par défaut
-        $depot = "1";
-
-        // Insérer dans la table livraison
-        $queryLivraison = "
-            INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
-            VALUES ('$idColis', $idEmploye, '$selectedHoraire', '$statut', '$selectedDate', '$depot')
-        ";
-
-        // Exécuter la requête d'insertion
-        $resultLivraison = mysqli_query($conn, $queryLivraison);
-
-        exit();
-    } elseif (isset($_POST['selected_date'])) {
+    if (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
         $queryHoraire = "SELECT * FROM TrancheHoraire";
@@ -133,8 +112,6 @@ if (!is_int($month)) {
     $month = 5;
 }
 
-//eza
-
 $moisFrancais = [
     1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
     6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
@@ -172,5 +149,4 @@ $monthYear = $moisFrancais[$month] . " " . $year;
     <script src="js/client.js" defer></script>
 </body>
 </html>
-
 
