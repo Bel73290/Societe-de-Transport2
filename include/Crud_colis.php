@@ -1,7 +1,6 @@
 <?php
-/
  
-Gestion des Livraisons*/,
+/*Gestion des Livraisons*/,
 include '../db/db_connect.php'; 
 $debeug = true;
 
@@ -50,9 +49,7 @@ function list_Livraisons($conn) {
     return rs_to_tab($res);
 }
 
-/
- 
-Fonction auxiliaire pour transformer un result set en tableau*/,
+/*Fonction auxiliaire pour transformer un result set en tableau*/,
 function rs_to_tab($rs) {
     $tab = [];
     while ($row = mysqli_fetch_assoc($rs)) {
