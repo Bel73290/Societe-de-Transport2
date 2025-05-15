@@ -27,8 +27,8 @@ for ($heure = 9; $heure <= 18; $heure++) {
 if ($annee !== '' && $semaine !== '') {
     $query = "
         SELECT u.nom, t.jour, t.heure_debut, t.heure_fin
-        FROM `horaire_employe` t
-        JOIN utilisateur u ON u.id = t.utilisateur_id
+        FROM Horaire_employe t
+        JOIN Utilisateur u ON u.id = t.utilisateur_id
         WHERE t.annee = " . intval($annee) . "
         AND t.semaine = " . intval($semaine) . "
     ";
