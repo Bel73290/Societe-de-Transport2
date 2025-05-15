@@ -53,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
             echo "<button type='submit'>Valider</button>";
             echo "</form>";
+
         } else {
             echo "<p>Aucune tranche horaire disponible pour cette date.</p>";
         }
@@ -106,6 +107,12 @@ $prevYear = $month == 1 ? $year - 1 : $year;
 $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
 
+// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
+if (!is_int($month)) {
+    $month = 5;
+}
+
+
 $moisFrancais = [
     1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
     6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
@@ -143,3 +150,5 @@ $monthYear = $moisFrancais[$month] . " " . $year;
     <script src="js/client.js" defer></script>
 </body>
 </html>
+
+
