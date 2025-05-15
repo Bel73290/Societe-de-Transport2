@@ -1,57 +1,33 @@
 <?php
 session_start();
-include_once 'db/db_connect.php'; // Connexion à la base de données
+include_once 'db/db_connect.php';
 include 'include/Crud_colis.php';
 
-// Vérification de connexion utilisateur
 if (!isset($_SESSION['id'])) {
-    header("Location: index.php"); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: index.php");
     exit();
 }
 
-$idUtilisateur = $_SESSION['id']; // ID utilisateur connecté
+$idUtilisateur = $_SESSION['id'];
 
-// Vérifier la connexion à la base de données
 if (!$conn || $conn === false) {
     die("Erreur : Connexion à la base de données impossible.");
 }
 
-// Vérifier la table `Colis` pour récupérer l'ID du colis associé à l'utilisateur
 $queryColis = "SELECT id FROM Colis WHERE id_client = '$idUtilisateur' LIMIT 1";
 $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     $rowColis = mysqli_fetch_assoc($resultColis);
-    $idColis = $rowColis['id']; // ID du colis récupéré
+    $idColis = $rowColis['id'];
 } else {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
 
-// Gestion des requêtes POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['selected_horaire']) && isset($_POST['selected_date'])) {
-        // Récupérer les données POST
-        $selectedHoraire = mysqli_real_escape_string($conn, $_POST['selected_horaire']);
+    if (isset($_POST['selected_date']) && !isset($_POST['selected_horaire'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
-        // Valeurs pour insertion dans livraison
-        $idEmploye = "3"; // Pas d'employé assigné
-        $statut = 'En attente'; // Statut initial
-        $commentaire = ''; // Commentaire vide par défaut
-        $depot = "1";
-        
-        $res = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate, $depot);
-        if (!$res) {
-            die("Erreur SQL : " . mysqli_error($conn));
-        }
-
-        // ✅ Redirige après l'insertion
-        header("Location: confirmation.php?success=1");
-        exit();
-    } elseif (isset($_POST['selected_date'])) {
-        $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
-
-        // Récupérer les tranches horaires disponibles pour la date sélectionnée
         $queryHoraire = "SELECT * FROM TrancheHoraire";
         $resultHoraire = mysqli_query($conn, $queryHoraire);
 
@@ -61,11 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_num_rows($resultHoraire) > 0) {
             echo "<h2>Horaires disponibles pour le $selectedDate</h2>";
-            echo "<form id='horaire-form' method='POST' action='client.php'>";
+            echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
-                $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
-                $heureFin = substr($row['heure_fin'], 0, 5);     // Ex : 10:00
+                $heureDebut = substr($row['heure_debut'], 0, 5);
+                $heureFin = substr($row['heure_fin'], 0, 5);
 
                 echo "<div class='horaire-item'>";
                 echo "<input type='radio' name='selected_horaire' value='$horaireId' required>";
