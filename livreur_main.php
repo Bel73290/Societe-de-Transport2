@@ -79,7 +79,7 @@ $result = mysqli_stmt_get_result($stmt);
 
 <!-- ---------- En-tête ---------- -->
 <header class="entete-livreur">
-    <span class="bonjour">Bonjour, <?= htmlspecialchars($employee_name) ?></span>
+    <span class="bonjour"><a href="index.php" class="home-link">Bonjour, <?= htmlspecialchars($employee_name) ?></a></span>
     <h1 class="titre-tournee">Votre tournée du <?= date('d/m/Y') ?></h1>
 </header>
 
