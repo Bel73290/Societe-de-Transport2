@@ -42,6 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate,$depot);
 
+        $result = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate, $depot);
+        if (!$result) {
+            die("Erreur SQL : " . mysqli_error($conn));
+        } else {
+            echo "Insertion réussie";
+        }   
+
         // Insérer dans la table livraison
         ///$queryLivraison = "
            // INSERT INTO Livraison (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
@@ -147,6 +154,8 @@ $moisFrancais = [
 ];
 
 $monthYear = $moisFrancais[$month] . " " . $year;
+
+
 ?>
 
 <!DOCTYPE html>
