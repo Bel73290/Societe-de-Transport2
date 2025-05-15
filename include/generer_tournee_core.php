@@ -45,8 +45,8 @@ while ($col = mysqli_fetch_assoc($colis)) {
     /* insertion Livraison */
     $stmt = mysqli_prepare($conn, "
         INSERT INTO Livraison
-        (id_colis, id_employe, id_tranche_horaire, statut, date_livraison)
-        VALUES (?, ?, ?, 'en attente', CURDATE())
+        (id_colis, id_employe, id_tranche_horaire, statut, date_livraison, id_depot)
+        VALUES (?, ?, ?, 'en attente', CURDATE(), 1)
     ");
     mysqli_stmt_bind_param($stmt, "iii",
         $col['id'], $livreurs[$indexLivreur], $slot);

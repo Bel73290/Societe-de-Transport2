@@ -48,7 +48,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Exécuter la requête d'insertion
         $resultLivraison = mysqli_query($conn, $queryLivraison);
 
-        exit();
+         // Si l'insertion réussit, rediriger vers la page confirmation
+         if ($resultLivraison) {
+            header("Location: confirmation.php?selected_date=$selectedDate&selected_horaire=$selectedHoraire");
+            exit(); // Important pour éviter toute exécution supplémentaire
+        } else {
+            echo "Erreur lors de l'insertion dans la base de données.";
+        }
     } elseif (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
 
@@ -74,9 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
-            echo "<a href='confirmation.php?selected_horaire=$horaireId&selected_date=$selectedDate'>";
-            echo "<button type='button'>Valider</button>";
-            echo "</a>";
+            echo "<button type='submit'>Valider</button>";
             echo "</form>";
         } else {
             echo "<p>Aucune tranche horaire disponible pour cette date.</p>";

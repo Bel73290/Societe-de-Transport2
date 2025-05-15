@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   height: 100vh;
   color: #333;
-  background: #f8f9fa;
+  background: #f4f4f4;
 }
 
 /* Header */
@@ -15,7 +15,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #4caf50, #81c784);
+  background: linear-gradient(90deg, #1373c2, #42a5f5);
   color: white;
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -36,6 +36,16 @@ header h1 {
   font-size: 1rem;
 }
 
+.home-link {
+  color: white;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
 /* Main Content */
 .main-content {
   display: flex;
@@ -47,7 +57,7 @@ header h1 {
 /* Sidebar */
 aside {
   background: #ffffff;
-  width: 15%; /* Réduction de la largeur */
+  width: 15%;
   padding: 20px;
   border-right: 1px solid #ddd;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
@@ -57,67 +67,77 @@ aside {
 
 aside h2 {
   font-size: 1.2rem;
-  color: #4caf50;
+  color: #1373c2;
 }
 
 aside ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 5px; /* Réduction de l'espace avec la section suivante */
+  margin-bottom: 5px;
 }
 
 aside li {
   font-size: 1rem;
-  margin: 5px 0; /* Réduction de l'espace entre les noms des employés */
+  margin: 5px 0;
   font-weight: bold;
 }
 
-aside .schedule-form {
-  margin-top: 10px; /* Réduction de l'espacement au-dessus du formulaire */
-  padding: 8px; /* Réduction de la taille globale */
+aside .schedule-form,
+aside .file-upload,
+.aside-section {
+  margin-top: 10px;
+  padding: 1rem;
   background: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-aside .schedule-form h3 {
-  margin-bottom: 5px; /* Réduction de l'espace sous le titre */
-  color: #4caf50;
+.aside-section h3,
+aside .schedule-form h3,
+aside .file-upload h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
   font-size: 1rem;
+  color: #1373c2;
 }
 
 aside .schedule-form label {
-  margin: 3px 0; /* Réduction de l'espacement autour des labels */
+  margin: 3px 0;
 }
 
 aside .schedule-form select,
-aside .schedule-form button {
+aside .schedule-form button,
+.aside-section form button {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 0.9rem;
 }
 
-aside .schedule-form button {
-  background: #4caf50;
+aside .schedule-form button,
+.aside-section form button {
+  background: #1373c2;
   color: white;
   font-weight: bold;
   cursor: pointer;
 }
 
-aside .schedule-form button:hover {
-  background: #388e3c;
+aside .schedule-form button:hover,
+.aside-section form button:hover {
+  background-color: #0c5ea1;
 }
 
-aside .file-upload {
-  margin-top: 10px; /* Réduction de l'espacement au-dessus de l'importation de fichiers */
+.employee-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
 }
 
-aside .file-upload h3 {
-  margin-bottom: 5px; /* Réduction de l'espace sous le titre */
-  font-size: 1rem;
+.employee-list li {
+  padding: 4px 0;
 }
 
 /* Main Section */
@@ -134,27 +154,32 @@ main {
   min-height: calc(100vh - 100px);
 }
 
-.calendar {
+.calendar,
+table {
   width: 90%;
   max-width: 100%;
   border-collapse: collapse;
+  background: white;
   margin: 10px 0;
-  background: #fff;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.calendar th {
-  background: #4caf50;
+.calendar th,
+table th {
+  background: #1373c2;
   color: white;
   padding: 10px;
+  text-align: center;
 }
 
-.calendar td {
-  border: 1px solid #ddd;
+.calendar td,
+table td {
+  border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  vertical-align: top;
 }
 
 .time-slot {
@@ -168,9 +193,81 @@ main {
   margin: 2px auto;
 }
 
+.nom {
+  display: block;
+  background: #e6f2ff;
+  border-radius: 4px;
+  margin: 2px 0;
+  padding: 2px 5px;
+  font-size: 0.9em;
+}
+
+/* Filtres et boutons */
+.filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.filters button {
+  background-color: #1373c2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.filters button:hover {
+  background-color: #0c5ea1;
+}
+
+.filters input[type="number"] {
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 80px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+/* Génération de planning */
+.generate-section {
+  margin-top: 1.5rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.generate-section h3 {
+  margin-top: 0;
+}
+
+.generate-section button {
+  width: 100%;
+  margin-top: 0.5rem;
+  background-color: #1373c2;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.generate-section button:hover {
+  background-color: #0c5ea1;
+}
+
 /* Footer */
 footer {
-  background: #4caf50;
+  background: #1373c2;
   color: white;
   text-align: center;
   padding: 5px 0;
