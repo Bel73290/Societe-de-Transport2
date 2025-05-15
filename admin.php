@@ -34,6 +34,9 @@ if ($annee !== '' && $semaine !== '') {
     ";
 
     $result = mysqli_query($conn, $query);
+    if (!$result) {
+        die("Erreur dans la requête : " . mysqli_error($conn));
+    }
     while ($row = mysqli_fetch_assoc($result)) {
         $nom = $row['nom'];
         $jour = strtolower($row['jour']);
