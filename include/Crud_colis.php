@@ -1,7 +1,6 @@
 <?php
  
 /*Gestion des Livraisons*/
-include '../db/db_connect.php'; 
 $debeug = true;
 
 function insert_Livraison($conn, $id_colis, $id_employe, $id_tranche_horaire, $statut, $date_livraison, $id_depot) {
