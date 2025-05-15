@@ -1,124 +1,173 @@
 <?php
-session_start();             
+session_start();
+include 'db/db_connect.php';
 
-/* message flash éventuel */
+$date = new DateTime();
+
+if (isset($_GET['annee']) && isset($_GET['semaine'])) {
+    $annee = intval($_GET['annee']);
+    $semaine = intval($_GET['semaine']);
+} else {
+    $annee = intval($date->format("o"));     // Année ISO
+    $semaine = intval($date->format("W"));    // Semaine ISO
+    // Redirection pour afficher l’URL proprement avec les bons paramètres
+    header("Location: ?annee=$annee&semaine=$semaine");
+    exit;
+}
+
+$jours_semaine = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+$horaires_grille = [];
+
+for ($heure = 9; $heure <= 18; $heure++) {
+    foreach ($jours_semaine as $jour) {
+        $horaires_grille[$heure][$jour] = [];
+    }
+}
+
+if ($annee !== '' && $semaine !== '') {
+    $query = "
+        SELECT u.nom, t.jour, t.heure_debut, t.heure_fin
+        FROM `horaire_employe` t
+        JOIN utilisateur u ON u.id = t.utilisateur_id
+        WHERE t.annee = " . intval($annee) . "
+        AND t.semaine = " . intval($semaine) . "
+    ";
+
+    $result = mysqli_query($conn, $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $nom = $row['nom'];
+        $jour = strtolower($row['jour']);
+        $heure_debut = intval(substr($row['heure_debut'], 0, 2));
+        $heure_fin = intval(substr($row['heure_fin'], 0, 2));
+
+        for ($h = $heure_debut; $h < $heure_fin; $h++) {
+            if (isset($horaires_grille[$h][$jour])) {
+                $horaires_grille[$h][$jour][] = $nom;
+            }
+        }
+    }
+}
+
 if (!empty($_SESSION['flash'])) {
     echo '<div class="alert alert-info">'.htmlspecialchars($_SESSION['flash']).'</div>';
     unset($_SESSION['flash']);
 }
 ?>
-<!DOCTYPE html>
 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier Administrateur</title>
     <link rel="stylesheet" href="css/admin_style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-        <form action="include/generer_tournee.php" method="POST"
-              onsubmit="return confirm('Générer la tournée pour aujourd’hui ?');"
-            style="margin-bottom:1rem">
-            <button type="submit" class="btn btn-primary">
-                Générer la tournée du jour
-            </button>
-        </form>
-    <?php endif; ?>
-    <div id="app">
-        <header>
-            <div class="header-left">
-                <img src="img/logo.png" alt="Logo de l'entreprise" class="logo">
-                <h1>Entreprise XYZ</h1>
-            </div>
-            <div class="header-right">
-                <p>Utilisateur connecté : {{ userName }}</p>
-            </div>
-        </header>
 
-        <div class="main-content">
-            <aside>
-                <h2>{{ directorName }}</h2>
-                <ul>
-                    <li v-for="employee in employees" :key="employee.id" :style="{ color: employee.color }">
-                        {{ employee.name }}
-                    </li>
+
+<div>
+    <header>
+        <div class="header-left">
+        <h1><a href="index.php" class="home-link">TransPlac</a></h1>
+
+        </div>
+        <div class="header-right">
+            <?php
+                $employee_name = $_SESSION['employee_name'] ?? ($_SESSION['user_name'] ?? 'Utilisateur');
+            ?>
+            <p><?= htmlspecialchars($employee_name) ?></p>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <aside>
+            <h2>Menu administrateur</h2>
+
+            <!-- Liste des employés -->
+            <div class="aside-section">
+                <h3>Liste des employés</h3>
+                <ul class="employee-list">
+                    <?php
+                    $empQuery = mysqli_query($conn, "SELECT id, nom FROM utilisateur WHERE types = 'employe'");
+                    while ($emp = mysqli_fetch_assoc($empQuery)) {
+                        echo '<li>' . htmlspecialchars($emp['nom']) . '</li>';
+                    }
+                    ?>
                 </ul>
-                <form class="schedule-form" @submit.prevent="addSchedule">
-                    <h3>Ajouter une plage horaire :</h3>
-                    <label for="employee">Employé :</label>
-                    <select id="employee" v-model.number="form.employeeId" required>
-                        <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                            {{ employee.name }}
-                        </option>
-                    </select>
+            </div>
 
-                    <label for="day">Jour :</label>
-                    <select id="day" v-model.number="form.dayIndex" required>
-                        <option v-for="(day, dayIndex) in weekDays" :key="dayIndex" :value="dayIndex">
-                            {{ day }}
-                        </option>
-                    </select>
-
-                    <label for="start-hour">Début :</label>
-                    <select id="start-hour" v-model.number="form.startHourIndex" required>
-                        <option v-for="(hour, hourIndex) in hours" :key="hourIndex" :value="hourIndex">
-                            {{ hour }}
-                        </option>
-                    </select>
-
-                    <label for="end-hour">Fin :</label>
-                    <select id="end-hour" v-model.number="form.endHourIndex" required>
-                        <option v-for="(hour, hourIndex) in hours" :key="hourIndex" :value="hourIndex">
-                            {{ hour }}
-                        </option>
-                    </select>
-
-                    <button type="submit">Ajouter</button>
+            <!-- Génération de la tournée -->
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+            <div class="aside-section">
+                <h3>Génération de tournée</h3>
+                <form action="include/generer_tournee.php" method="POST" onsubmit="return confirm('Générer la tournée pour aujourd’hui ?');">
+                    <button type="submit" class="btn btn-primary">🗺 Générer la tournée du jour</button>
                 </form>
-                <div class="file-upload">
-                    <h3>Importer des fichiers :</h3>
-                    <form action="import/Excel.php" method="post" enctype="multipart/form-data">
-                        <input type="file" name="excelFile" accept=".xls,.xlsx" required>
-                        <button type="submit">Importer</button>
-                    </form>
-                </div>
-            </aside>
+            </div>
+            <?php endif; ?>
 
-            <main>
+            <!-- Importation de fichiers -->
+            <div class="aside-section">
+                <h3>Importer des fichiers</h3>
+                <form action="import/Excel.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="excelFile" accept=".xls,.xlsx" required>
+                    <button type="submit" class="btn btn-primary">📂 Importer</button>
+                </form>
+            </div>
+        </aside>
+
+
+        <main>
+            <form method="GET" class="filters">
+                <label>Année :
+                    <input type="number" name="annee" value="<?= htmlspecialchars($annee) ?>" required>
+                </label>
+                <label>Semaine :
+                    <input type="number" name="semaine" value="<?= htmlspecialchars($semaine) ?>" required>
+                </label>
+                <button type="submit">Afficher</button>
+                <button data-nav="prev">← Semaine précédente</button>
+                <button data-nav="next">Semaine suivante →</button>
+            </form>
+
+
+            <?php if ($annee && $semaine): ?>
                 <table class="calendar">
                     <thead>
                         <tr>
-                            <th>Heures</th>
-                            <th v-for="(day, dayIndex) in weekDays" :key="dayIndex">{{ day }}</th>
+                            <th>Heure</th>
+                            <?php foreach ($jours_semaine as $jour): ?>
+                                <th><?= ucfirst($jour) ?></th>
+                            <?php endforeach; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(hour, hourIndex) in hours" :key="hourIndex">
-                            <td>{{ hour }}</td>
-                            <td v-for="(day, dayIndex) in weekDays" :key="dayIndex" class="time-slot">
-                                <div v-if="schedule[hourIndex] && schedule[hourIndex][dayIndex]"
-                                     v-for="employeeId in schedule[hourIndex][dayIndex]"
-                                     :key="employeeId"
-                                     :style="{ backgroundColor: getEmployeeColor(employeeId) }"
-                                     class="employee-indicator">
-                                    {{ employeeId }}
-                                </div>
-                            </td>
-                        </tr>
+                        <?php for ($h = 9; $h <= 18; $h++): ?>
+                            <tr>
+                                <th><?= $h ?>h</th>
+                                <?php foreach ($jours_semaine as $jour): ?>
+                                    <td>
+                                        <?php foreach ($horaires_grille[$h][$jour] as $nom): ?>
+                                            <span class="nom"><?= htmlspecialchars($nom) ?></span>
+                                        <?php endforeach; ?>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endfor; ?>
                     </tbody>
                 </table>
-            </main>
-        </div>
-
-        <footer>
-            <p>© 2025 Entreprise XYZ - Tous droits réservés</p>
-        </footer>
+            <?php elseif ($_GET): ?>
+                <p>Aucun horaire trouvé.</p>
+            <?php endif; ?>
+        </main>
     </div>
 
-    <script src="js/admin_main.js" defer></script>
+    <footer>
+        <p>© 2025 Entreprise XYZ - Tous droits réservés</p>
+    </footer>
+</div>
+
+<script src="js/admin_main.js"></script>
 </body>
 </html>
