@@ -42,12 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate,$depot);
 
-        $result = insert_Livraison($conn, $idColis, $idEmploye, $selectedHoraire, $statut, $selectedDate, $depot);
-        if (!$result) {
-            die("Erreur SQL : " . mysqli_error($conn));
-        } else {
-            echo "Insertion réussie";
-        }   
+        header("Location: confirmation.php?success=1");
+        
 
         // Insérer dans la table livraison
         ///$queryLivraison = "
@@ -72,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_num_rows($resultHoraire) > 0) {
             echo "<h2>Horaires disponibles pour le $selectedDate</h2>";
-            echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
+            echo "<form id='horaire-form' method='POST' action='client.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
                 $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
@@ -84,9 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</div>";
             }
             echo "<input type='hidden' name='selected_date' value='$selectedDate'>";
-            echo "<a href='confirmation.php?selected_horaire=$horaireId&selected_date=$selectedDate'>";
-            echo "<button type='button'>Valider</button>";
-            echo "</a>";
+            echo "<button type='submit'>Valider</button>";
             echo "</form>";
         } else {
             echo "<p>Aucune tranche horaire disponible pour cette date.</p>";
