@@ -44,9 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$res) {
             die("Erreur SQL : " . mysqli_error($conn));
         }
-
+        console.log("Message 1");
         // ✅ Redirige après l'insertion
         header("Location: confirmation.php?success=1");
+        console.log("Message 2");
         exit();
     } elseif (isset($_POST['selected_date'])) {
         $selectedDate = mysqli_real_escape_string($conn, $_POST['selected_date']);
