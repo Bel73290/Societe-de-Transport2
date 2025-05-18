@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once 'db/db_connect.php';
-include 'include/Crud_colis.php'; // Pour utiliser insert_Livraison
+include 'include/Crud_colis.php'; 
 
 if (!isset($_SESSION['id'])) {
     header("Location: index.php");
@@ -30,7 +30,7 @@ if (!$selectedDate || !$selectedHoraireId) {
 }
 
 // Insérer la livraison
-$idEmploye = "3"; // Non assigné
+$idEmploye = "3";
 $statut = 'En attente';
 $commentaire = '';
 $depot = "1";
@@ -66,7 +66,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Confirmation</title>
+        <title>Confirmation horraire colis</title>
         <meta http-equiv="refresh" content="5;url=index.php">
         <link rel="stylesheet" href="css/confirmation.css">
     </head>

@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once 'db/db_connect.php'; // Connexion à la base de données
+include_once 'db/db_connect.php'; 
 
 // Vérification de connexion utilisateur
 if (!isset($_SESSION['id'])) {
-    header("Location: index.php"); // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: index.php"); 
     exit();
 }
 
@@ -21,7 +21,7 @@ $resultColis = mysqli_query($conn, $queryColis);
 
 if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     $rowColis = mysqli_fetch_assoc($resultColis);
-    $idColis = $rowColis['id']; // ID du colis récupéré
+    $idColis = $rowColis['id']; 
 } else {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
@@ -110,7 +110,7 @@ $nextMonth = $month == 12 ? 1 : $month + 1;
 $nextYear = $month == 12 ? $year + 1 : $year;
 
 
-// Si le mois est invalide (en dehors de la plage de 1 à 12), utilisez le mois actuel
+
 if (!is_int($month)) {
     $month = 5;
 }
@@ -129,7 +129,7 @@ $monthYear = $moisFrancais[$month] . " " . $year;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendrier interactif</title>
+    <title>Modifications horraire</title>
     <link rel="stylesheet" href="css/client2.css">
 </head>
 <body>
