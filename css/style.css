@@ -88,8 +88,9 @@ body {
 
 #search-box h3 {
     text-align: center;
-    margin: 0.2rem 0.25rem;
+    margin-bottom: 20px;
     font-size: 1.5rem;
+    color: #333333;
 }
 
 .colis-result {
