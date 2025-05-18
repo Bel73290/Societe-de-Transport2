@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             })
                             .catch(error => {
                                 console.error('Erreur lors de la confirmation :', error);
-                                //alert('Une erreur est survenue.');
+                  
                             });
                         } else {
                             alert('Veuillez sélectionner une tranche horaire.');

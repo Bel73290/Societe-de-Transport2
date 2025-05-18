@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<form id='horaire-form' method='POST' action='confirmation.php'>";
             while ($row = mysqli_fetch_assoc($resultHoraire)) {
                 $horaireId = $row['id'];
-                $heureDebut = substr($row['heure_debut'], 0, 5); // Ex : 08:00
-                $heureFin = substr($row['heure_fin'], 0, 5);     // Ex : 10:00
+                $heureDebut = substr($row['heure_debut'], 0, 5); 
+                $heureFin = substr($row['heure_fin'], 0, 5);     
 
                 echo "<div class='horaire-item'>";
                 echo "<input type='radio' name='selected_horaire' value='$horaireId' required>";
@@ -97,7 +97,6 @@ function generateCalendar($month, $year, $days) {
         if ($currentDay < $days) {
             $calendar .= "<td class='date-prec'>$currentDay</td>"; 
         } else {
-            echo $days;
             $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>"; 
 }
 

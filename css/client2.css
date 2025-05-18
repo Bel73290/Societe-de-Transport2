@@ -1,26 +1,26 @@
-/* ====== STYLE GÉNÉRAL (HTML et body) ====== */
+/* ====== STYLE GÉNÉRAL  ====== */
 html, body {
-    height: 100%; /* Prend toute la hauteur de la page */
-    margin: 0; /* Supprime les marges par défaut */
-    padding: 0; /* Supprime les paddings par défaut */
+    height: 100%; 
+    margin: 0; 
+    padding: 0; 
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Arrière-plan clair pour la page */
+    background-color: #f4f4f4; 
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Organise les éléments dans une colonne */
+    flex-direction: column; 
 }
 
 /* ====== CONTENEURS CALENDRIER & HORAIRE ====== */
 #calendar-container, #horaire-container {
-    width: 95%; /* Occupe 95% de la largeur de la page */
-    height: 90%; /* Prend 90% de la hauteur de la fenêtre */
+    width: 95%; 
+    height: 90%; 
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     animation: fadeInBlock 0.5s ease;
-    overflow: auto; /* Ajoute un défilement si le contenu dépasse */
+    overflow: auto; 
 }
 
 
@@ -53,12 +53,12 @@ html, body {
     color: white;
 }
 
-/* ====== EN-TÊTE DU CALENDRIER (calendar-header) ====== */
+/* ====== EN-TÊTE DU CALENDRIER  ====== */
 .calendar-header {
     display: flex;
-    justify-content: center; /* au lieu de space-between */
+    justify-content: center; 
     align-items: center;
-    gap: 40px; /* espace entre les éléments */
+    gap: 40px; 
     padding: 10px 20px;
     background-color: #1373c2;
     color: white;
@@ -208,21 +208,21 @@ html, body {
     transform: translateY(2px); /* Effet de clic */
 }
 
-/* Pour l'icône (si présente) dans les horaires items */
+/* Pour l'icône dans les horaires items */
 .horaire-item .horaire-icon {
     margin-right: 15px;
-    font-size: 1.5em; /* Taille de l'icône */
-    color: #1373c2; /* Couleur de l'icône */
+    font-size: 1.5em; 
+    color: #1373c2; 
 }
 
-/* Texte des horaires (pour un texte plus lisible et structuré) */
+/* Texte des horaires */
 .horaire-item .horaire-text {
     flex: 1;
     color: #333;
     font-weight: bold;
 }
 
-/* Si on veut un bouton ou action supplémentaire */
+
 .horaire-item .horaire-action {
     background-color: #1373c2;
     color: white;
@@ -238,7 +238,7 @@ html, body {
     transform: scale(1.05);
 }
 
-/* Item désactivé (par exemple, un horaire déjà pris) */
+
 .horaire-item.disabled {
     background-color: #f1f1f1;
     color: #aaa;
@@ -246,7 +246,7 @@ html, body {
 }
 
 .horaire-item.disabled:hover {
-    background-color: #f1f1f1; /* Aucune interaction visuelle */
+    background-color: #f1f1f1; 
 }
 
 /* ====== BOUTON RETOUR ====== */
