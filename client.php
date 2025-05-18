@@ -97,7 +97,7 @@ function generateCalendar($month, $year, $days) {
         if ($currentDay < $days) {
             $calendar .= "<td class='date-prec'>$currentDay</td>"; 
         } else {
-            echo $day;
+            echo $days;
             $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>"; 
 }
 
