@@ -131,15 +131,15 @@ html, body {
 }
 
 .date-prec {
-    background-color: gray;
-    color: white;
-    border: none;
-    border-radius: 12px;
+    display: inline-block;
+    background-color: transparent;
+    color: #aaa;
     padding: 10px 20px;
-    margin: 10px;
     font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    border-radius: 12px;
+    cursor: default;
 }
+
 
 .date-btn:hover {
     background-color: #0c5ea1;
