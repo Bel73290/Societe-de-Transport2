@@ -136,14 +136,14 @@ html, body {
 }
 
 /* Style quand le bouton est désactivé */
-.date-btn.disabled {
+.date-btn:disabled {
     background-color: gray;
     color: #ccc;
     cursor: not-allowed;
     transform: none;
 }
 
-.date-btn.disabled:hover {
+.date-btn:disabled:hover {
     background-color: gray; /* Pas de changement au hover */
     transform: none;
 }
