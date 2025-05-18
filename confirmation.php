@@ -21,8 +21,8 @@ if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
 
-$selectedDate = $_POST['selected_date'] ?? $_GET['selected_date'] ?? null;
-$selectedHoraireId = $_POST['selected_horaire'] ?? $_GET['selected_horaire'] ?? null;
+$selectedDate =  $_GET['selected_date'] ?? null;
+$selectedHoraireId = $_GET['selected_horaire'] ?? null;
 
 if (!$selectedDate || !$selectedHoraireId) {
     header("Location: index.php"); 
