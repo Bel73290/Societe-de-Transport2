@@ -109,7 +109,7 @@ function generateCalendar($month, $year) {
 
 
 if (!is_int($month)) {
-    $month = date('m');
+    $month = (int)date("m");
 }
 
 function month_prev_and_next($month, $year) {
