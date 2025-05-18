@@ -135,7 +135,10 @@ mysqli_close($conn);
             <?php endif; ?>
 
             <!-- Formulaire de recherche -->
-
+            <form method="POST" action="">
+                <input type="text" id="colis" name="colis" placeholder="Entrez un numéro de colis..." required>
+                <button type="submit" name="submit_search">Rechercher</button>
+            </form>
         </div>
 
 
