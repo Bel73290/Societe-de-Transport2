@@ -70,8 +70,7 @@ $days = (int)date("d");
 $month_now = date("m");
 
 
-// Fonction pour générer un calendrier
-function generateCalendar($month, $year, $days, $month_now) {
+function generateCalendar($month, $year) {
     $daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     $firstDayOfMonth = strtotime("$year-$month-01");
     $numberOfDays = date('t', $firstDayOfMonth);
@@ -85,6 +84,9 @@ function generateCalendar($month, $year, $days, $month_now) {
     $calendar .= "</tr><tr>";
 
     $currentDay = 1;
+    $today = date('Y-m-d');
+
+    // cellules vides avant le premier jour
     for ($i = 0; $i < $startingDay; $i++) {
         $calendar .= "<td class='empty-cell'>...</td>";
     }
@@ -93,27 +95,22 @@ function generateCalendar($month, $year, $days, $month_now) {
         if (($startingDay + $currentDay - 1) % 7 == 0 && $currentDay != 1) {
             $calendar .= "</tr><tr>";
         }
-        if ($month < 10) {
-            $month = "0$month";
-        }
 
-        if ($currentDay < 10) {
-            $currentDay = "0$currentDay";
-        }
-
-        $isoDate = "$year-$month-$currentDay";
-        $today = date('Y-m-d');
+        // Ne modifie pas les vraies valeurs
+        $monthPadded = ($month < 10) ? "0$month" : $month;
+        $dayPadded = ($currentDay < 10) ? "0$currentDay" : $currentDay;
+        $isoDate = "$year-$monthPadded-$dayPadded";
 
         if ($isoDate < $today) {
             $calendar .= "<td><button class='date-btn' disabled>$currentDay</button></td>";
-
         } else {
-            $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>"; 
-}
+            $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>";
+        }
 
         $currentDay++;
     }
 
+    // cellules vides après le dernier jour
     while (($startingDay + $currentDay - 1) % 7 != 0) {
         $calendar .= "<td class='empty-cell'>...</td>";
         $currentDay++;
@@ -122,7 +119,6 @@ function generateCalendar($month, $year, $days, $month_now) {
     $calendar .= "</tr></table>";
     return $calendar;
 }
-
 
 
 if (!is_int($month)) {
