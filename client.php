@@ -125,7 +125,7 @@ function month_prev_and_next($month, $year) {
     ];
     $monthYear = $moisFrancais[$month] . " " . $year;
 
-    if ($month == 5) {
+    if ($month != 5) {
         echo '<a href="?month=' . $prevMonth . '&year=' . $prevYear . '" id="prev-month">Mois précédent</a>';
         echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
         echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
