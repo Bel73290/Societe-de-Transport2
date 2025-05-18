@@ -66,12 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Gérer la navigation du calendrier
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
-$day = (int)date("d");
+$days = (int)date("d");
 
 
 
 // Fonction pour générer un calendrier
-function generateCalendar($month, $year, $day) {
+function generateCalendar($month, $year, $days) {
     $daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     $firstDayOfMonth = strtotime("$year-$month-01");
     $numberOfDays = date('t', $firstDayOfMonth);
@@ -94,7 +94,7 @@ function generateCalendar($month, $year, $day) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        if ($currentDay < $day) {
+        if ($currentDay < $days) {
             $calendar .= "<td class='past-date'>$currentDay</td>"; 
         } else {
             echo $day;
@@ -160,7 +160,7 @@ function month_prev_and_next($month, $year) {
            <?php echo month_prev_and_next($month, $year); ?>
         </div>
         <div id="calendar">
-            <?php echo generateCalendar($month, $year, $day); ?>
+            <?php echo generateCalendar($month, $year, $days); ?>
         </div>
     </div>
 
