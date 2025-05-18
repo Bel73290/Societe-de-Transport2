@@ -21,8 +21,8 @@ if ($resultColis && mysqli_num_rows($resultColis) > 0) {
     die("Erreur : Aucun colis associé trouvé pour cet utilisateur.");
 }
 
-$selectedDate = $_POST['selected_date'] ?? $_GET['selected_date'] ?? null;
-$selectedHoraireId = $_POST['selected_horaire'] ?? $_GET['selected_horaire'] ?? null;
+$selectedDate = $_POST['selected_date'] ??  null;
+$selectedHoraireId = $_POST['selected_horaire'] ?? null;
 
 if (!$selectedDate || !$selectedHoraireId) {
     header("Location: index.php"); 
@@ -47,11 +47,9 @@ if (select_Livraison($conn, $idColis) != null){
     }
 }
 
-$query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = ?";
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "i", $selectedHoraireId);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$selectedHoraireId = (int)$selectedHoraireId; 
+$query = "SELECT heure_debut, heure_fin FROM TrancheHoraire WHERE id = $selectedHoraireId";
+$result = mysqli_query($conn, $query);
 
 if ($row = mysqli_fetch_assoc($result)) {
     $heureDebut = substr($row['heure_debut'], 0, 5);
@@ -60,6 +58,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     $heureDebut = "??:??";
     $heureFin = "??:??";
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +73,7 @@ if ($row = mysqli_fetch_assoc($result)) {
         <div class="confirmation-box">
         <h1>Livraison confirmée !</h1>
         <?php
-            echo "<p>Votre colis sera livré le " . htmlspecialchars($selectedDate) . ".</p>";
+            echo "<p>Votre colis sera livré le " .$selectedDate . ".</p>";
             echo "<p>entre " . $heureDebut . " et " . $heureFin . ".</p>";
         ?>
         <p class="timer">Redirection vers l'accueil dans 5 secondes...</p>
