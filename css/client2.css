@@ -135,17 +135,17 @@ html, body {
     transform: scale(1.05);
 }
 
-/* Style quand le bouton est désactivé */
 .date-btn:disabled {
-    background-color: gray;
-    color: #ccc;
-    cursor: not-allowed;
-    transform: none;
+    background-color: gray !important;
+    color: #ccc !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    pointer-events: none;
 }
 
 .date-btn:disabled:hover {
-    background-color: gray; /* Pas de changement au hover */
-    transform: none;
+    background-color: gray !important;
+    transform: none !important;
 }
 
 
