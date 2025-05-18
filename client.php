@@ -94,8 +94,7 @@ function generateCalendar($month, $year, $day) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        if ($currentDay > $day) {
-            echo $currentDay;
+        if ($currentDay < $day) {
             $calendar .= "<td class='past-date'>$currentDay</td>"; 
         } else {
             echo $currentDay;
