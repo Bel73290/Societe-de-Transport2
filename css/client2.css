@@ -148,14 +148,6 @@ html, body {
 }
 
 
-.date-prec:hover {
-    background-color: transparent;
-    font-weight: normal;
-}
-
-
-
-
 /* ====== TRANCHES HORAIRES ====== */
 .horaire-option {
     display: block;
