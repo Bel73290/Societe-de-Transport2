@@ -136,7 +136,7 @@ mysqli_close($conn);
 
             <form method="POST" action="" class="form-style">
                 <label for="colis">Entrer un numéro de colis :</label>
-                <input type="text" id="colis" name="colis" placeholder="Ex: COL001" required>
+                <input type="text" id="colis" name="colis" placeholder="numéro de colis" required>
                 <button type="submit" name="submit_search">Rechercher</button>
             </form>
         </div>
