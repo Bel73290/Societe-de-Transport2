@@ -67,17 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 
-function month_prev_and_next($month) {
-    if ($month == 5) {
-        echo '<a href="?month=' . $prevMonth . '&year=' . $prevYear . '" id="prev-month">Mois précédent</a>';
-        echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
-        echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
-    } else {
-        echo '<a href="#" id="prev-month">Mois précédent</a>';
-        echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
-        echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
-    }
-}
+
 
 // Fonction pour générer un calendrier
 function generateCalendar($month, $year) {
@@ -134,6 +124,18 @@ $moisFrancais = [
 ];
 
 $monthYear = $moisFrancais[$month] . " " . $year;
+
+function month_prev_and_next($month) {
+    if ($month == 5) {
+        echo '<a href="?month=' . $prevMonth . '&year=' . $prevYear . '" id="prev-month">Mois précédent</a>';
+        echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
+        echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
+    } else {
+        echo '<a href="#" id="prev-month">Mois précédent</a>';
+        echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
+        echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
+    }
+}
 ?>
 
 <!DOCTYPE html>
