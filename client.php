@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 $days = (int)date("d");
-$month_now = (int)date("m");
+$month_now = date("m");
 
 
 // Fonction pour générer un calendrier
@@ -94,7 +94,7 @@ function generateCalendar($month, $year, $days, $month_now) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        if  ($currentDay < $day && $month_now == (int)date('m')) {
+        if  ($currentDay < $day && $month == $month_now) {
             $calendar .= "<td><button class='date-btn' disabled>$currentDay</button></td>";
 
         } else {
