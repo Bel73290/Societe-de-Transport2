@@ -135,6 +135,19 @@ html, body {
     transform: scale(1.05);
 }
 
+.date-btn:disabled {
+    background-color: gray !important;
+    color: #ccc !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    pointer-events: none;
+}
+
+.date-btn:disabled:hover {
+    background-color: gray !important;
+    transform: none !important;
+}
+
 
 /* ====== TRANCHES HORAIRES ====== */
 .horaire-option {
