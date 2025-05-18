@@ -93,8 +93,18 @@ function generateCalendar($month, $year, $days, $month_now) {
         if (($startingDay + $currentDay - 1) % 7 == 0 && $currentDay != 1) {
             $calendar .= "</tr><tr>";
         }
-        $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        if  ($currentDay < $day && (int)$month == 5) {
+        if ($month < 10) {
+            $month = "0$month";
+        }
+
+        if ($currentDay < 10) {
+            $currentDay = "0$currentDay";
+        }
+
+        $isoDate = "$year-$month-$currentDay";
+        $today = date('Y-m-d');
+
+        if ($isoDate < $today) {
             $calendar .= "<td><button class='date-btn' disabled>$currentDay</button></td>";
 
         } else {
