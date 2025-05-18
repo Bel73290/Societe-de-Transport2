@@ -8,21 +8,26 @@ if (!isset($conn) || $conn === false) {
 }
 
 /* ——— 1) Formulaire « Recherche colis » ——— */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_search'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_search'])) {
     $colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
 
-    if ($colis === '') {
-        $error_message_search = 'Veuillez entrer un numéro de colis.';
+    if (empty($colis)) {
+        $error_message_search = "Veuillez entrer un numéro de colis.";
     } else {
-        $sql     = "SELECT * FROM `Colis` WHERE `code_colis`='$colis'";
-        $result  = mysqli_query($conn, $sql) or die('Erreur SQL (Colis) : '.mysqli_error($conn));
+        $sql = "SELECT Colis.*, Utilisateur.nom, Utilisateur.adresse
+                FROM Colis
+                JOIN Utilisateur ON Colis.id_client = Utilisateur.id
+                WHERE Colis.code_colis = '$colis'";
+        $result = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result)) {
-            $row           = mysqli_fetch_assoc($result);
-            $search_result = 'Colis trouvé ! Statut : '.htmlspecialchars($row['statut']).
-                             ', Date de réception prévue : '.htmlspecialchars($row['date_reception']);
+        if (!$result) {
+            die("Erreur SQL (Colis) : " . mysqli_error($conn));
+        }
+
+        if (mysqli_num_rows($result) > 0) {
+            $colis_data = mysqli_fetch_assoc($result);
         } else {
-            $error_message_search = 'Le colis n\'existe pas dans la base de données.';
+            $error_message_search = "Le colis n'existe pas dans la base de données.";
         }
     }
 }
@@ -111,19 +116,31 @@ mysqli_close($conn);
         </div>
 
         <!-- Recherche colis -->
-        <div id="search-box" class="hidden-content">
+        <?php $search_active = isset($_POST['submit_search']) || isset($colis_data) || isset($error_message_search); ?>
+        <div id="search-box" class="<?= $search_active ? '' : 'hidden-content' ?>">
+            <h3>Rechercher un colis</h3>
+
             <?php if (isset($error_message_search)): ?>
                 <div class="error-message"><?= htmlspecialchars($error_message_search) ?></div>
             <?php endif; ?>
-            <?php if (isset($search_result)): ?>
-                <div class="search-result"><?= htmlspecialchars($search_result) ?></div>
+
+            <?php if (isset($colis_data)): ?>
+                <div class="colis-result">
+                    <p><strong>Client :</strong> <?= htmlspecialchars($colis_data['nom']) ?></p>
+                    <p><strong>Adresse :</strong> <?= htmlspecialchars($colis_data['adresse']) ?></p>
+                     <p><strong>Code colis :</strong> <?= htmlspecialchars($colis_data['code_colis']) ?></p>
+                    <p><strong>Statut :</strong> <?= htmlspecialchars($colis_data['statut']) ?></p>
+                    <p><strong>Date réception prévue :</strong> <?= htmlspecialchars($colis_data['date_reception']) ?></p>
+                </div>
             <?php endif; ?>
 
+            <!-- Formulaire de recherche -->
             <form method="POST" action="">
-                <input type="text" name="colis" placeholder="Entrez un numéro de colis..." required>
+                <input type="text" id="colis" name="colis" placeholder="Entrez un numéro de colis..." required>
                 <button type="submit" name="submit_search">Rechercher</button>
             </form>
         </div>
+
 
         <!-- Espace employés -->
         <div id="employee-login" class="hidden-content">
