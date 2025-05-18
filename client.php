@@ -94,7 +94,7 @@ function generateCalendar($month, $year, $days, $month_now) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        if  ($currentDay < $day && $month == $month_now) {
+        if  ($currentDay < $day && (int)$month == 5) {
             $calendar .= "<td><button class='date-btn' disabled>$currentDay</button></td>";
 
         } else {
