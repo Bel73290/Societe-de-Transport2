@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 $days = (int)date("d");
-$month_now = (int)date("d");
+$month_now = (int)date("m");
 
 
 // Fonction pour générer un calendrier
