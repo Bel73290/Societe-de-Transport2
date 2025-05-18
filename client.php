@@ -159,7 +159,7 @@ function month_prev_and_next($month, $year) {
            <?php echo month_prev_and_next($month, $year); ?>
         </div>
         <div id="calendar">
-            <?php echo generateCalendar($month, $year); ?>
+            <?php echo generateCalendar($month, $year? $day); ?>
         </div>
     </div>
 
