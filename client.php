@@ -106,26 +106,25 @@ function generateCalendar($month, $year) {
     return $calendar;
 }
 
-$prevMonth = $month == 1 ? 12 : $month - 1;
-$prevYear = $month == 1 ? $year - 1 : $year;
-$nextMonth = $month == 12 ? 1 : $month + 1;
-$nextYear = $month == 12 ? $year + 1 : $year;
-
 
 
 if (!is_int($month)) {
     $month = 5;
 }
 
-$moisFrancais = [
-    1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
-    6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
-    11 => 'Novembre', 12 => 'Décembre'
-];
+function month_prev_and_next($month, $year) {
+    $prevMonth = $month == 1 ? 12 : $month - 1;
+    $prevYear = $month == 1 ? $year - 1 : $year;
+    $nextMonth = $month == 12 ? 1 : $month + 1;
+    $nextYear = $month == 12 ? $year + 1 : $year;
 
-$monthYear = $moisFrancais[$month] . " " . $year;
+    $moisFrancais = [
+        1 => 'Janvier', 2 => 'Février', 3 => 'Mars', 4 => 'Avril', 5 => 'Mai',
+        6 => 'Juin', 7 => 'Juillet', 8 => 'Août', 9 => 'Septembre', 10 => 'Octobre',
+        11 => 'Novembre', 12 => 'Décembre'
+    ];
+    $monthYear = $moisFrancais[$month] . " " . $year;
 
-function month_prev_and_next($month) {
     if ($month == 5) {
         echo '<a href="?month=' . $prevMonth . '&year=' . $prevYear . '" id="prev-month">Mois précédent</a>';
         echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
@@ -136,6 +135,8 @@ function month_prev_and_next($month) {
         echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
