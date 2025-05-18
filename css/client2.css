@@ -136,13 +136,15 @@ html, body {
 }
 
 .date-prec {
-    display: inline-block;
-    background-color: transparent;
-    color: #aaa;
-    padding: 10px 20px;
-    font-size: 1.1em;
+    background-color: gray;
+    color: white;
+    border: none;
     border-radius: 12px;
-    cursor: default;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: not-allowed;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 
