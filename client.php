@@ -66,11 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Gérer la navigation du calendrier
 $month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 $year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
+$day = (int)date("d");
 
 
 
 // Fonction pour générer un calendrier
-function generateCalendar($month, $year) {
+function generateCalendar($month, $year, $day) {
     $daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     $firstDayOfMonth = strtotime("$year-$month-01");
     $numberOfDays = date('t', $firstDayOfMonth);
@@ -93,7 +94,12 @@ function generateCalendar($month, $year) {
             $calendar .= "</tr><tr>";
         }
         $isoDate = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-" . str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>";
+        if ($currentDay < $day) {
+            $calendar .= "<td class='past-date'>$currentDay</td>"; 
+        } else {
+            $calendar .= "<td><button class='date-btn' data-date='$isoDate'>$currentDay</button></td>"; 
+}
+
         $currentDay++;
     }
 
@@ -125,7 +131,7 @@ function month_prev_and_next($month, $year) {
     ];
     $monthYear = $moisFrancais[$month] . " " . $year;
 
-    if ($month != 5) {
+    if ($month != (int)date("m")) {
         echo '<a href="?month=' . $prevMonth . '&year=' . $prevYear . '" id="prev-month">Mois précédent</a>';
         echo '<h1 id="month-year-display">' . $monthYear . '</h1>';
         echo '<a href="?month=' . $nextMonth . '&year=' . $nextYear . '" id="next-month">Mois suivant</a>';
