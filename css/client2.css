@@ -130,6 +130,11 @@ html, body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.date-btn:hover {
+    background-color: #0c5ea1;
+    transform: scale(1.05);
+}
+
 .date-prec {
     display: inline-block;
     background-color: transparent;
@@ -141,10 +146,13 @@ html, body {
 }
 
 
-.date-btn:hover {
-    background-color: #0c5ea1;
-    transform: scale(1.05);
+.date-prec:hover {
+    background-color: transparent;
+    font-weight: normal;
 }
+
+
+
 
 /* ====== TRANCHES HORAIRES ====== */
 .horaire-option {
