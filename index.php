@@ -118,29 +118,28 @@ mysqli_close($conn);
         <!-- Recherche colis -->
         <?php $search_active = isset($_POST['submit_search']) || isset($colis_data) || isset($error_message_search); ?>
         <div id="search-box" class="<?= $search_active ? '' : 'hidden-content' ?>">
-            <h3>Rechercher un colis</h3>
-
-            <?php if (isset($error_message_search)): ?>
-                <div class="error-message"><?= htmlspecialchars($error_message_search) ?></div>
-            <?php endif; ?>
+            <h3>Recherche Colis</h3>
 
             <?php if (isset($colis_data)): ?>
                 <div class="colis-result">
                     <p><strong>Client :</strong> <?= htmlspecialchars($colis_data['nom']) ?></p>
                     <p><strong>Adresse :</strong> <?= htmlspecialchars($colis_data['adresse']) ?></p>
-                     <p><strong>Code colis :</strong> <?= htmlspecialchars($colis_data['code_colis']) ?></p>
+                    <p><strong>Code colis :</strong> <?= htmlspecialchars($colis_data['code_colis']) ?></p>
                     <p><strong>Statut :</strong> <?= htmlspecialchars($colis_data['statut']) ?></p>
                     <p><strong>Date réception prévue :</strong> <?= htmlspecialchars($colis_data['date_reception']) ?></p>
                 </div>
             <?php endif; ?>
 
-            <!-- Formulaire de recherche -->
-            <form method="POST" action="">
-                <input type="text" id="colis" name="colis" placeholder="Entrez un numéro de colis..." required>
+            <?php if (isset($error_message_search)): ?>
+                <div class="error-message"><?= htmlspecialchars($error_message_search) ?></div>
+            <?php endif; ?>
+
+            <form method="POST" action="" class="form-style">
+                <label for="colis">Entrer un numéro de colis :</label>
+                <input type="text" id="colis" name="colis" placeholder="Ex: COL001" required>
                 <button type="submit" name="submit_search">Rechercher</button>
             </form>
         </div>
-
 
         <!-- Espace employés -->
         <div id="employee-login" class="hidden-content">

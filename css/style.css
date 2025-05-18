@@ -73,58 +73,51 @@ body {
 }
 
 /* Barre de Recherche */
-.top-center #search-box {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #ffffff;
-    border: 2px solid #dddddd;
+#search-box {
+    background: rgba(255,255,255,0.9);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 1rem auto;
+}
+
+#search-box h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.colis-result {
+    background: #f5f5f5;
+    padding: 1rem 1.2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
 }
 
-.top-center #search-box input {
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
+.form-style {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
 }
 
-.top-center #search-box button {
-    padding: 10px;
-    background-color: #0066cc;
+.form-style input[type="text"] {
+    padding: 0.5rem 0.7rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.form-style button {
+    padding: 0.6rem;
+    background-color: #007bff;
     color: white;
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
 }
-
-.top-center #search-box button:hover {
-    background-color: #005bb5;
-}
-
-/* Résultat trouvé */
-.top-center .search-result {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #e6f7e6;
-    border: 2px solid #28a745;
-    border-radius: 5px;
-    color: #28a745;
-    text-align: center;
-}
-
-/* Message d'erreur */
-.top-center .error-message {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #fbeaea;
-    border: 2px solid #d9534f;
-    border-radius: 5px;
-    color: #d9534f;
-    text-align: center;
+.form-style button:hover {
+    background-color: #0056b3;
 }
 
 /* Espace Employés */
