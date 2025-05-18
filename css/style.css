@@ -413,3 +413,16 @@ body {
         font-size: 0.9em;
     }
 }
+
+
+.colis-result {
+    background: #fff;
+    color: #222;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 1rem 0;
+}
+.colis-result p {
+    margin: .4rem 0;
+}
