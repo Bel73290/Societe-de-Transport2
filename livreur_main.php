@@ -72,7 +72,7 @@ $result = mysqli_stmt_get_result($stmt);
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ma tournée - TransPlac</title>
+    <title>TransPlac - Ma tournée </title>
     <link rel="stylesheet" href="css/livreur_style.css">
 </head>
 <body>

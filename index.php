@@ -97,7 +97,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page d'Accueil</title>
+    <title>TransPlac - Page d'Accueil</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

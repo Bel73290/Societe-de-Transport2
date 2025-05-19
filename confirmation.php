@@ -65,7 +65,7 @@ if ($row = mysqli_fetch_assoc($result)) {
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Confirmation horraire colis</title>
+        <title>TransPlac - Confirmation horraire colis</title>
         <meta http-equiv="refresh" content="5;url=index.php">
         <link rel="stylesheet" href="css/confirmation.css">
     </head>

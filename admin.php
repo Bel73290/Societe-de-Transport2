@@ -61,7 +61,7 @@ if (!empty($_SESSION['flash'])) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Calendrier Administrateur</title>
+    <title>Transplac - Calendrier Administrateur</title>
     <link rel="stylesheet" href="css/admin_style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -167,7 +167,7 @@ if (!empty($_SESSION['flash'])) {
     </div>
 
     <footer>
-        <p>© 2025 Entreprise XYZ - Tous droits réservés</p>
+        <p>© 2025 Entreprise TransPlac - Tous droits réservés</p>
     </footer>
 </div>
 
