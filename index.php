@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_search'])) {
     }
 }
 
-/* ——— 2) Formulaire « Modifier livraison » (clients) ——— */
+/* ——— 2) Formulaire « Planifier livraison » (clients) ——— */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_client'])) {
     $name  = mysqli_real_escape_string($conn, trim($_POST['name']));
     $colis = mysqli_real_escape_string($conn, trim($_POST['colis']));
@@ -112,7 +112,7 @@ mysqli_close($conn);
         <div class="vertical-bar">
             <span class="menu-item" data-action="search">Recherche Colis</span>
             <span class="menu-item" data-action="employees">Espace Employés</span>
-            <span class="menu-item" data-action="clients">Modifier Livraison</span>
+            <span class="menu-item" data-action="clients">Planifier Livraison</span>
         </div>
 
         <!-- Recherche colis -->
@@ -157,7 +157,7 @@ mysqli_close($conn);
 
         <!-- Espace clients -->
         <div id="client-login" class="hidden-content">
-            <h3>Modifier Livraison</h3>
+            <h3>Planifier Livraison</h3>
             <?php if (isset($error_message)): ?>
                 <div class="error-message"><?= htmlspecialchars($error_message) ?></div>
             <?php endif; ?>
